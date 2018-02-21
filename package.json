@@ -1,0 +1,27 @@
+{
+  "name": "excel-parser-processor",
+  "version": "1.0.0",
+  "description": "Does the tedious processing over all items of a given excel file by converting the rows to an array and process all items of that array recursively",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btargac/excel-parser-processor.git"
+  },
+  "keywords": [
+    "process",
+    "excel",
+    "download",
+    "parse",
+    "read excel",
+    "process excel file"
+  ],
+  "author": "Burak Targaç",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/btargac/excel-parser-processor/issues"
+  },
+  "homepage": "https://github.com/btargac/excel-parser-processor#readme"
+}
