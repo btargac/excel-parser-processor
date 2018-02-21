@@ -2,9 +2,21 @@
   "name": "excel-parser-processor",
   "version": "1.0.0",
   "description": "Does the tedious processing over all items of a given excel file by converting the rows to an array and process all items of that array recursively",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
-    "test": "jest"
+    "build": "webpack --config webpack.prod.js",
+    "start": "webpack --watch --config webpack.dev.js",
+    "test": "jest --coverage",
+    "test-watch": "jest --coverage --watch"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ]
   },
   "repository": {
     "type": "git",
@@ -23,5 +35,18 @@
   "bugs": {
     "url": "https://github.com/btargac/excel-parser-processor/issues"
   },
-  "homepage": "https://github.com/btargac/excel-parser-processor#readme"
+  "homepage": "https://github.com/btargac/excel-parser-processor#readme",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "@babel/runtime": "^7.0.0-beta.40",
+    "babel-jest": "^22.4.0",
+    "babel-loader": "^8.0.0-beta.0",
+    "clean-webpack-plugin": "^0.1.18",
+    "jest": "^22.4.0",
+    "uglifyjs-webpack-plugin": "^1.2.0",
+    "webpack": "^3.11.0",
+    "webpack-merge": "^4.1.1"
+  }
 }
