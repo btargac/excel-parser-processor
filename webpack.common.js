@@ -23,8 +23,11 @@ module.exports = {
       }
     ]
   },
+  //not to mock __dirname and such node globals
+  node: false,
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
-  }
+  },
+  target: 'node'
 };
