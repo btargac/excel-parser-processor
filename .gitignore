@@ -32,6 +32,9 @@ bower_components
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 dist/
+images/*.jpg
+images/*.png
+images/*.gif
 
 # Dependency directories
 node_modules/
@@ -59,3 +62,6 @@ typings/
 .env
 
 .idea/
+
+# os specific temp files
+.DS_Store
