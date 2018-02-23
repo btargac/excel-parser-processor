@@ -15,27 +15,28 @@ let processedItemsCount = 0;
 
 const processItem = () => {
 
-  const imageNameRegex = /[A-z0-9\-]*.(jpg|png)$/g;
+  const imageNameRegex = /[A-z0-9\-]*.(jpg|png)$/ig;
   const imageUrl = new URL(rowItems.pop());
-
-  console.log(imageUrl,imageUrl.pathname);
-
   const imageName = imageUrl.pathname.match(imageNameRegex)[0];
-
-  processedItemsCount++;
 
   fetch(imageUrl)
     .then(res => {
       const dest = fs.createWriteStream(`${path.join(__dirname, '../images/')}${imageName}`);
       res.body.pipe(dest);
 
-      console.log(`% ${ Math.floor(processedItemsCount / initialItemsLength) * 100 }`);
+      console.log(`% ${ Math.abs(++processedItemsCount / initialItemsLength) * 100 }`);
 
       if (rowItems.length) {
         processItem();
+      } else {
+        console.log('process finished');
       }
 
-    }).catch(err => console.log(err));
+    })
+    .catch(err => {
+      console.log(err);
+      processItem();
+    });
 
 };
 
