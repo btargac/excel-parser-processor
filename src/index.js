@@ -1,43 +1,23 @@
-import fs from 'fs';
 import path from 'path';
-import xlsx from 'node-xlsx';
-import isUrl from 'is-url';
-import fetch from 'node-fetch';
-import { URL } from 'url';
+import { app, BrowserWindow } from 'electron';
+import processItems from './utils/processItems';
 
-const workSheetsFromFile = xlsx.parse(`${path.join(__dirname, '../')}resimlinkleri.xlsx`);
+// to tell webpack that we also need to process some styles
+import './styles/index.scss';
 
-const pagesWithData = workSheetsFromFile.filter(page => page.data.length);
+let mainWindow;
 
-const rowItems = pagesWithData.reduce((prev, curr) => prev.concat(...curr.data), []).filter(text => isUrl(text));
-const initialItemsLength = rowItems.length;
-let processedItemsCount = 0;
+processItems();
 
-const processItem = () => {
+app.on('ready', () => {
+  mainWindow = new BrowserWindow({
+    show: false
+  });
 
-  const imageNameRegex = /[A-z0-9\-]*.(jpg|png)$/ig;
-  const imageUrl = new URL(rowItems.pop());
-  const imageName = imageUrl.pathname.match(imageNameRegex)[0];
+  mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
 
-  fetch(imageUrl)
-    .then(res => {
-      const dest = fs.createWriteStream(`${path.join(__dirname, '../images/')}${imageName}`);
-      res.body.pipe(dest);
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show();
+  });
 
-      console.log(`% ${ Math.abs(++processedItemsCount / initialItemsLength) * 100 }`);
-
-      if (rowItems.length) {
-        processItem();
-      } else {
-        console.log('process finished');
-      }
-
-    })
-    .catch(err => {
-      console.log(err);
-      processItem();
-    });
-
-};
-
-processItem();
+});
