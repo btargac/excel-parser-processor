@@ -24,7 +24,6 @@ const processItems = () => {
 
   fetch(imageUrl)
     .then(res => {
-      console.log('nereye yazdın lan', `${path.join(__dirname, '../images/')}${imageName}`);
       const dest = fs.createWriteStream(`${path.join(__dirname, '../images/')}${imageName}`);
       res.body.pipe(dest);
 
