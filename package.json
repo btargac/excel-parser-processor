@@ -6,6 +6,7 @@
   "scripts": {
     "build-main": "NODE_ENV=production PROCESS_TYPE=main webpack --config webpack.prod.js",
     "build-renderer": "NODE_ENV=production PROCESS_TYPE=renderer webpack --config webpack.prod.js",
+    "build": "npm-run-all build-main build-renderer",
     "start-renderer-dev": "NODE_ENV=development PROCESS_TYPE=renderer webpack --watch --config webpack.dev.js",
     "start": "electron ./dist/index.bundle.js",
     "test": "jest --coverage",
@@ -66,6 +67,7 @@
     "is-url": "^1.2.2",
     "node-fetch": "^2.0.0",
     "node-xlsx": "^0.11.2",
-    "normalize.css": "^8.0.0"
+    "normalize.css": "^8.0.0",
+    "npm-run-all": "^4.1.2"
   }
 }
