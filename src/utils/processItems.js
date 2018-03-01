@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import fetch from "node-fetch";
 import {URL} from "url";
 import xlsx from "node-xlsx";
@@ -11,26 +12,26 @@ const workSheetsFromFile = xlsx.parse(`${path.join(__dirname, '../')}resimlinkle
 const pagesWithData = workSheetsFromFile.filter(page => page.data.length);
 
 const rowItems = pagesWithData.reduce((prev, curr) => prev.concat(...curr.data), []).filter(text => isUrl(text));
+
 const initialItemsLength = rowItems.length;
 
 let processedItemsCount = 0;
 
 const processItems = () => {
 
-  console.log('function is called');
-
   const imageUrl = new URL(rowItems.pop());
   const imageName = imageUrl.pathname.match(imageNameRegex)[0];
 
   fetch(imageUrl)
     .then(res => {
+      console.log('nereye yazdın lan', `${path.join(__dirname, '../images/')}${imageName}`);
       const dest = fs.createWriteStream(`${path.join(__dirname, '../images/')}${imageName}`);
       res.body.pipe(dest);
 
       console.log(`% ${ Math.abs(++processedItemsCount / initialItemsLength) * 100 }`);
 
       if (rowItems.length) {
-        processItems(rowItems);
+        processItems();
       } else {
         console.log('process finished');
       }
@@ -38,7 +39,7 @@ const processItems = () => {
     })
     .catch(err => {
       console.log(err);
-      processItems(rowItems);
+      processItems();
     });
 
 };

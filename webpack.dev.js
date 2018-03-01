@@ -1,7 +1,18 @@
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const { mainConfig, rendererConfig } = require('./webpack.common.js');
+const processType = process.env.PROCESS_TYPE;
 
-module.exports = merge(common, {
+let config = null;
+
+switch (processType) {
+  case "main":
+    config = mainConfig;
+    break;
+  case "renderer":
+    config = rendererConfig;
+}
+
+module.exports = merge(config, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist'
