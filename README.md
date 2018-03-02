@@ -3,6 +3,7 @@ Simply generates an array of items from the rows of a given excel file and do th
 
 [![Dependency Status][david_img]][david_site]
 [![Build Status][travis_img]][travis_site]
+[![Github Tag][github-tag-image]][github-tag-url]
 
 ### A Cross-Platform Desktop App for processing all rows of excel files
 
@@ -13,3 +14,6 @@ Simply generates an array of items from the rows of a given excel file and do th
 
 [travis_img]: https://travis-ci.org/btargac/excel-parser-processor.svg?branch=master
 [travis_site]: https://travis-ci.org/btargac/excel-parser-processor
+
+[github-tag-image]: https://img.shields.io/github/tag/btargac/excel-parser-processor.svg
+[github-tag-url]: https://github.com/btargac/excel-parser-processor/releases/latest
