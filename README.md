@@ -1,8 +1,8 @@
 # excel-parser-processor
 Simply generates an array of items from the rows of a given excel file and do the tedious operations step by step recursively till every item of the array is processed.
 
-[![Dependency Status][david_img]]([david_site])
-[![Build Status][travis_img]]([travis_site])
+[![Dependency Status][david_img]][david_site]
+[![Build Status][travis_img]][travis_site]
 
 ### A Cross-Platform Desktop App for processing all rows of excel files
 
