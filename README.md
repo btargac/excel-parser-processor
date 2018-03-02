@@ -7,5 +7,5 @@ Simply generates an array of items from the rows of a given excel file and do th
 
 <br/>
 
-[david_img]: https://img.shields.io/david/btargac/excel-parser-processor.svg
+[david_img]: https://david-dm.org/btargac/excel-parser-processor/status.svg
 [david_site]: https://david-dm.org/btargac/excel-parser-processor
