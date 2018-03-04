@@ -1,5 +1,6 @@
 {
   "name": "excel-parser-processor",
+  "productName": "Excel Parser Processor",
   "version": "1.0.1",
   "description": "Does the tedious processing over all items of a given excel file by converting the rows to an array and process all items of that array recursively",
   "main": "./src/index.js",
@@ -11,7 +12,9 @@
     "start-renderer-dev": "NODE_ENV=development PROCESS_TYPE=renderer webpack --watch --config webpack.dev.js",
     "start": "electron ./dist/index.bundle.js",
     "test": "jest --coverage",
-    "test-watch": "jest --coverage --watch"
+    "test-watch": "jest --coverage --watch",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "jest": {
     "transform": {
@@ -53,6 +56,7 @@
     "copy-webpack-plugin": "^4.5.0",
     "css-loader": "^0.28.10",
     "electron": "^1.8.2",
+    "electron-builder": "^20.2.0",
     "electron-icon-maker": "0.0.4",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-webpack-exclude-assets-plugin": "0.0.6",
@@ -72,5 +76,16 @@
     "node-xlsx": "^0.11.2",
     "normalize.css": "^8.0.0",
     "npm-run-all": "^4.1.2"
+  },
+  "build": {
+    "appId": "com.Targac.ExcelParserProcessor",
+    "productName": "Excel Parser Processor",
+    "files": [
+      "!build-assets${/*}",
+      "!coverage${/*}",
+      "!images${/*}",
+      "!src${/*}",
+      "dist/"
+    ]
   }
 }
