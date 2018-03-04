@@ -30,8 +30,7 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/
-build/Release
+release/
 dist/
 images/*.jpg
 images/*.png

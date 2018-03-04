@@ -3,7 +3,7 @@
   "productName": "Excel Parser Processor",
   "version": "1.0.1",
   "description": "Does the tedious processing over all items of a given excel file by converting the rows to an array and process all items of that array recursively",
-  "main": "./src/index.js",
+  "main": "./dist/index.bundle.js",
   "scripts": {
     "build-main": "NODE_ENV=production PROCESS_TYPE=main webpack --config webpack.prod.js",
     "build-renderer": "NODE_ENV=production PROCESS_TYPE=renderer webpack --config webpack.prod.js",
@@ -83,9 +83,10 @@
     "files": [
       "!build-assets${/*}",
       "!coverage${/*}",
-      "!images${/*}",
-      "!src${/*}",
-      "dist/"
-    ]
+      "!src${/*}"
+    ],
+    "directories": {
+      "output": "release"
+    }
   }
 }
