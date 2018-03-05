@@ -1,6 +1,8 @@
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import url from 'url';
+import { showOpenDialog } from './dialogs';
+import { processFile } from "./utils/processItems";
 
 let win;
 
@@ -32,7 +34,12 @@ const createWindow = () => {
   });
 };
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+  ipcMain.on('file-dropped', (event, filePath) => {
+    showOpenDialog(win, filePath, processFile);
+  })
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
