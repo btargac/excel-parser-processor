@@ -32,9 +32,6 @@ bower_components
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 release/
 dist/
-images/*.jpg
-images/*.png
-images/*.gif
 
 # Dependency directories
 node_modules/
