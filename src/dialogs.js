@@ -7,7 +7,7 @@ export const showOpenDialog = (browserWindow, defaultPath, cb) => {
     title: "Choose an output folder",
     properties: ['openDirectory', 'createDirectory']
   }, (filePaths) => {
-    if(filePaths.length) {
+    if(filePaths && filePaths.length) {
 
       cb(defaultPath, filePaths[0]);
 
