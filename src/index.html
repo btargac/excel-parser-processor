@@ -10,6 +10,9 @@
 <body>
   <div class="app">
     <div class="app__header">
+      <div class="app__header__logo">
+        <img src="images/header-logo.png" width="128" height="128" alt="Excel Processor">
+      </div>
       <h1 class="app__title">
         Excel processor
       </h1>
@@ -26,13 +29,14 @@
           Drag & Drop
         </div>
         <div class="desc">
-          your files to Assets, or
+          your excel files, or
         </div>
         <div class="browse">
           click here to browse
         </div>
       </div>
-      <output id="list"></output><input id="files" multiple="true" name="files[]" type="file" />
+      <output id="list"></output>
+      <input id="files" name="files[]" type="file" />
     </div>
   </div>
 </body>

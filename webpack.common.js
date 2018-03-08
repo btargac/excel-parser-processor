@@ -32,8 +32,11 @@ const mainConfig = {
   },
   plugins: [
     cleanDist,
-    // nothing to copy from src to dist yet
-    // new CopyWebpackPlugin([]),
+    new CopyWebpackPlugin([{
+      from: './src/images/',
+      to: 'images',
+      toType: 'dir'
+    }]),
   ],
   module: {
     rules: [

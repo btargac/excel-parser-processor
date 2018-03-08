@@ -25,7 +25,7 @@ html {
 
 .wrapper {
   width: 100%;
-  height: calc(100% - 200px);
+  height: calc(100% -  #{$header-height});
   position: relative;
 }
 
@@ -119,10 +119,18 @@ html {
     color: #fff;
     height: $header-height;
     padding: 10px;
+
+    &__logo {
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
+
   &__title {
+    display: inline-block;
     margin: 0;
   }
+
   &__description {
     font-style: italic;
   }
