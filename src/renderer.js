@@ -13,12 +13,12 @@ const filesInput = document.querySelector('#files');
 const handleIn = () => {
 
   $(".drop").css({
-    "border": "4px dashed #09f",
+    "border": "4px dashed #3023AE",
     "background": "rgba(0, 153, 255, .05)"
   });
 
   $(".cont").css({
-    "color": "#09f"
+    "color": "#3023AE"
   });
 
 };

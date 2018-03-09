@@ -1,7 +1,7 @@
 @import '~normalize.css';
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 
-$header-height: 200px;
+$header-height: 120px;
 
 *,
 *:before,
@@ -79,7 +79,7 @@ html {
   color: white;
   padding: 8px 16px;
   border-radius: 5px;
-  background: #09f;
+  background: #3023AE;
 }
 
 .drop input {
@@ -114,7 +114,7 @@ html {
   &__header {
     background: linear-gradient(
         135deg,
-        #3023AE, #C86DD7
+        #1b1253, #673a74
     );
     color: #fff;
     height: $header-height;
@@ -128,7 +128,8 @@ html {
 
   &__title {
     display: inline-block;
-    margin: 0;
+    margin: 0 0 0 10px;
+    text-transform: uppercase;
   }
 
   &__description {
