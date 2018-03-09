@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 // we also need to process some styles with webpack
 import fontawesome from '@fortawesome/fontawesome';
-import { faCloudUploadAlt } from '@fortawesome/fontawesome-free-solid'
+import { faCloudUploadAlt } from '@fortawesome/fontawesome-free-solid';
 fontawesome.library.add(faCloudUploadAlt);
 import './styles/index.scss';
 
