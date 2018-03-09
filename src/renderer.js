@@ -61,3 +61,71 @@ const handleFileSelect = (event) => {
 };
 
 filesInput.addEventListener('change', handleFileSelect);
+
+const $progress = $(".progress"),
+  $bar = $(".progress__bar"),
+  $text = $(".progress__text"),
+  orange = 30,
+  yellow = 55,
+  green = 85;
+
+const resetColors = () => {
+
+  $bar.removeClass("progress__bar--green")
+    .removeClass("progress__bar--yellow")
+    .removeClass("progress__bar--orange")
+    .removeClass("progress__bar--blue");
+
+  $progress.removeClass("progress--complete");
+
+};
+
+const update = (percent) => {
+
+  percent = parseFloat( percent.toFixed(1) );
+
+  $text.find("em").text( percent + "%" );
+
+  if( percent >= 100 ) {
+
+    percent = 100;
+    $progress.addClass("progress--complete");
+    $bar.addClass("progress__bar--blue");
+    $text.find("em").text( "Complete" );
+
+  } else {
+
+    if( percent >= green ) {
+      $bar.addClass("progress__bar--green");
+    }
+
+    else if( percent >= yellow ) {
+      $bar.addClass("progress__bar--yellow");
+    }
+
+    else if( percent >= orange ) {
+      $bar.addClass("progress__bar--orange");
+    }
+
+  }
+
+  $bar.css({ width: percent + "%" });
+
+};
+
+const processStartHandler = () => {
+  $progress.addClass("progress--active");
+  $('.wrapper').hide();
+};
+
+const progressHandler = (event, percentage) => update(percentage);
+
+const processCompletedHandler = () => {
+  resetColors();
+  update(0);
+  $('.wrapper').show();
+};
+
+ipcRenderer.once('process-started', processStartHandler);
+ipcRenderer.once('process-completed', processCompletedHandler);
+ipcRenderer.on('progress', progressHandler);

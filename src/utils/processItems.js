@@ -11,7 +11,7 @@ let initialItemsLength = 0;
 
 let processedItemsCount = 0;
 
-const processItems = (rowItems, filePath, outputPath) => {
+const processItems = (rowItems, filePath, outputPath, win) => {
 
   const imageUrl = new URL(rowItems.pop());
   const imageName = imageUrl.pathname.match(imageNameRegex)[0];
@@ -21,23 +21,26 @@ const processItems = (rowItems, filePath, outputPath) => {
       const dest = fs.createWriteStream(path.join(outputPath, imageName));
       res.body.pipe(dest);
 
-      console.log(`% ${ Math.abs(++processedItemsCount / initialItemsLength) * 100 }`);
+      const percentage = Math.abs(++processedItemsCount / initialItemsLength) * 100;
+
+      win.webContents.send('progress', percentage);
 
       if (rowItems.length) {
-        processItems(rowItems, filePath, outputPath);
+        processItems(rowItems, filePath, outputPath, win);
       } else {
-        console.log('process finished');
+        console.log('process completed');
+        win.webContents.send('process-completed');
       }
 
     })
     .catch(err => {
       console.log(err);
-      processItems(rowItems, filePath, outputPath);
+      processItems(rowItems, filePath, outputPath, win);
     });
 
 };
 
-export const processFile = (filePath, outputPath) => {
+export const processFile = (filePath, outputPath, browserWindow) => {
 
   const workSheetsFromFile = xlsx.parse(filePath);
 
@@ -49,6 +52,8 @@ export const processFile = (filePath, outputPath) => {
 
   processedItemsCount = 0;
 
-  processItems(rowItems, filePath, outputPath);
+  browserWindow.webContents.send('process-started');
+
+  processItems(rowItems, filePath, outputPath, browserWindow);
 
 };

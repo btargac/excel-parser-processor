@@ -9,7 +9,7 @@ export const showOpenDialog = (browserWindow, defaultPath, cb) => {
   }, (filePaths) => {
     if(filePaths && filePaths.length) {
 
-      cb(defaultPath, filePaths[0]);
+      cb(defaultPath, filePaths[0], browserWindow);
 
     }
   });
