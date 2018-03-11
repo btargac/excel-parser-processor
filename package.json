@@ -55,7 +55,7 @@
     "clean-webpack-plugin": "^0.1.18",
     "copy-webpack-plugin": "^4.5.0",
     "css-loader": "^0.28.10",
-    "electron": "^1.8.2",
+    "electron": "^2.0.0-beta.3",
     "electron-builder": "^20.5.0",
     "electron-icon-maker": "0.0.4",
     "extract-text-webpack-plugin": "^3.0.2",
