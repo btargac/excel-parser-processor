@@ -126,6 +126,18 @@ const processCompletedHandler = () => {
   $('.wrapper').show();
 };
 
+const disableDrop = event => {
+  if(event.target !== filesInput) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+};
+
+// Prevent loading a drag-and-dropped file
+['dragover', 'drop'].forEach(event => {
+  document.addEventListener(event, disableDrop);
+});
+
 ipcRenderer.once('process-started', processStartHandler);
 ipcRenderer.once('process-completed', processCompletedHandler);
 ipcRenderer.on('progress', progressHandler);
