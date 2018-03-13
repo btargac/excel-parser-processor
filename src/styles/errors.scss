@@ -1,0 +1,16 @@
+.error-toast {
+  display: none;
+  position: absolute;
+  text-align: center;
+  width: 70%;
+  background-color: rgba(252, 59, 0, 0.8);
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+  padding: 1rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  margin: 0 auto;
+}

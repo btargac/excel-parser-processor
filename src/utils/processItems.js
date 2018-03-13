@@ -17,24 +17,35 @@ const processItems = (rowItems, filePath, outputPath, win) => {
   const imageName = imageUrl.pathname.match(imageNameRegex)[0];
 
   fetch(imageUrl)
-    .then(res => {
-      const dest = fs.createWriteStream(path.join(outputPath, imageName));
-      res.body.pipe(dest);
+    .then(response => {
 
-      const percentage = Math.abs(++processedItemsCount / initialItemsLength) * 100;
+      if (response.ok) {
 
-      win.webContents.send('progress', percentage);
+        const dest = fs.createWriteStream(path.join(outputPath, imageName));
+        response.body.pipe(dest);
 
-      if (rowItems.length) {
-        processItems(rowItems, filePath, outputPath, win);
+        const percentage = Math.abs(++processedItemsCount / initialItemsLength) * 100;
+
+        win.webContents.send('progress', percentage);
+
+        if (rowItems.length) {
+          processItems(rowItems, filePath, outputPath, win);
+        } else {
+          console.log('process completed');
+          win.webContents.send('process-completed');
+        }
+
       } else {
-        console.log('process completed');
-        win.webContents.send('process-completed');
+        return Promise.reject({
+          status: response.status,
+          statusText: response.statusText,
+          imageInfo: imageUrl.href
+        })
       }
 
     })
     .catch(err => {
-      console.log(err);
+      win.webContents.send('process-error', err);
       processItems(rowItems, filePath, outputPath, win);
     });
 

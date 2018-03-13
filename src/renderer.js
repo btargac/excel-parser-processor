@@ -9,29 +9,30 @@ import './styles/index.scss';
 
 const drop = document.querySelector('input');
 const filesInput = document.querySelector('#files');
+const errorArea = document.querySelector('.error-toast');
 
 const handleIn = () => {
 
-  $(".drop").css({
-    "border": "4px dashed #3023AE",
-    "background": "rgba(0, 153, 255, .05)"
+  $('.drop').css({
+    border: '4px dashed #3023AE',
+    background: 'rgba(0, 153, 255, .05)'
   });
 
-  $(".cont").css({
-    "color": "#3023AE"
+  $('.cont').css({
+    color: '#3023AE'
   });
 
 };
 
 const handleOut = () => {
 
-  $(".drop").css({
-    "border": "3px dashed #DADFE3",
-    "background": "transparent"
+  $('.drop').css({
+    border: '3px dashed #DADFE3',
+    background: 'transparent'
   });
 
-  $(".cont").css({
-    "color": "#8E99A5"
+  $('.cont').css({
+    color: '#8E99A5'
   });
 
 };
@@ -62,21 +63,21 @@ const handleFileSelect = (event) => {
 
 filesInput.addEventListener('change', handleFileSelect);
 
-const $progress = $(".progress"),
-  $bar = $(".progress__bar"),
-  $text = $(".progress__text"),
+const $progress = $('.progress'),
+  $bar = $('.progress__bar'),
+  $text = $('.progress__text'),
   orange = 30,
   yellow = 55,
   green = 85;
 
 const resetColors = () => {
 
-  $bar.removeClass("progress__bar--green")
-    .removeClass("progress__bar--yellow")
-    .removeClass("progress__bar--orange")
-    .removeClass("progress__bar--blue");
+  $bar.removeClass('progress__bar--green')
+    .removeClass('progress__bar--yellow')
+    .removeClass('progress__bar--orange')
+    .removeClass('progress__bar--blue');
 
-  $progress.removeClass("progress--complete");
+  $progress.removeClass('progress--complete');
 
 };
 
@@ -84,47 +85,67 @@ const update = (percent) => {
 
   percent = parseFloat( percent.toFixed(1) );
 
-  $text.find("em").text( percent + "%" );
+  $text.find('em').text( percent + '%' );
 
   if( percent >= 100 ) {
 
     percent = 100;
-    $progress.addClass("progress--complete");
-    $bar.addClass("progress__bar--blue");
-    $text.find("em").text( "Complete" );
+    $progress.addClass('progress--complete');
+    $bar.addClass('progress__bar--blue');
+    $text.find('em').text( 'Complete' );
 
   } else {
 
     if( percent >= green ) {
-      $bar.addClass("progress__bar--green");
+      $bar.addClass('progress__bar--green');
     }
 
     else if( percent >= yellow ) {
-      $bar.addClass("progress__bar--yellow");
+      $bar.addClass('progress__bar--yellow');
     }
 
     else if( percent >= orange ) {
-      $bar.addClass("progress__bar--orange");
+      $bar.addClass('progress__bar--orange');
     }
 
   }
 
-  $bar.css({ width: percent + "%" });
+  $bar.css({ width: percent + '%' });
 
 };
 
 const processStartHandler = () => {
-  $progress.addClass("progress--active");
+  $progress.addClass('progress--active');
+  $progress.show();
   $('.wrapper').hide();
 };
 
 const progressHandler = (event, percentage) => update(percentage);
 
 const processCompletedHandler = () => {
-  resetColors();
-  update(0);
-  $('.wrapper').show();
+
+  setTimeout(()=> {
+    resetColors();
+    update(0);
+    $('.wrapper').show();
+    $progress.hide();
+  }, 3000);
 };
+
+const processErrorHandler = (event, data) => {
+
+  const oldText = $(errorArea).text();
+
+  $(errorArea).text(`${oldText} | ${data.imageInfo} ${data.statusText}`).show().animate({
+    bottom: '10%'
+  }, 'slow');
+};
+
+errorArea.addEventListener('click', () => {
+  $(errorArea).animate({
+    bottom: 0
+  }, 'slow', function() { $(this).hide()});
+});
 
 const disableDrop = event => {
   if(event.target !== filesInput) {
@@ -138,6 +159,7 @@ const disableDrop = event => {
   document.addEventListener(event, disableDrop);
 });
 
-ipcRenderer.once('process-started', processStartHandler);
-ipcRenderer.once('process-completed', processCompletedHandler);
+ipcRenderer.on('process-started', processStartHandler);
+ipcRenderer.on('process-completed', processCompletedHandler);
 ipcRenderer.on('progress', progressHandler);
+ipcRenderer.on('process-error', processErrorHandler);
