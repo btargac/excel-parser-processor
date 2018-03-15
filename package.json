@@ -1,7 +1,7 @@
 {
   "name": "excel-parser-processor",
   "productName": "Excel Parser Processor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Does the tedious processing over all items of a given excel file by converting the rows to an array and process all items of that array recursively",
   "main": "./dist/index.bundle.js",
   "scripts": {
@@ -13,8 +13,8 @@
     "start": "electron ./dist/index.bundle.js",
     "test": "jest --coverage",
     "test-watch": "jest --coverage --watch",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "pack": "electron-builder build --dir",
+    "dist": "electron-builder build"
   },
   "jest": {
     "transform": {
@@ -38,7 +38,11 @@
     "read excel",
     "process excel file"
   ],
-  "author": "Burak Targaç",
+  "author": {
+    "name" : "Burak Targaç",
+    "email" : "btargac@gmail.com",
+    "url" : "http://buraktargac.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/btargac/excel-parser-processor/issues"
@@ -84,6 +88,7 @@
   "build": {
     "appId": "com.Targac.ExcelParserProcessor",
     "productName": "Excel Parser Processor",
+    "copyright": "Copyright © 2018 Burak Targaç",
     "files": [
       "!build-assets${/*}",
       "!coverage${/*}",
@@ -92,5 +97,9 @@
     "directories": {
       "output": "release"
     }
+  },
+  "publish": {
+    "provider": "github",
+    "owner": "Burak Targaç"
   }
 }
