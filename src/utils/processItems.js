@@ -5,23 +5,22 @@ import {URL} from "url";
 import xlsx from "node-xlsx";
 import isUrl from "is-url";
 
-const imageNameRegex = /[A-z0-9\-]*.(jpg|png)$/ig;
-
 let initialItemsLength = 0;
 
 let processedItemsCount = 0;
 
 const processItems = (rowItems, filePath, outputPath, win) => {
 
-  const imageUrl = new URL(rowItems.pop());
-  const imageName = imageUrl.pathname.match(imageNameRegex)[0];
+  const itemUrl = new URL(rowItems.pop());
 
-  fetch(imageUrl)
+  const itemName = path.basename(itemUrl.pathname);
+
+  fetch(itemUrl)
     .then(response => {
 
       if (response.ok) {
 
-        const dest = fs.createWriteStream(path.join(outputPath, imageName));
+        const dest = fs.createWriteStream(path.join(outputPath, itemName));
         response.body.pipe(dest);
 
         const percentage = Math.abs(++processedItemsCount / initialItemsLength) * 100;
@@ -39,7 +38,7 @@ const processItems = (rowItems, filePath, outputPath, win) => {
         return Promise.reject({
           status: response.status,
           statusText: response.statusText,
-          imageInfo: imageUrl.href
+          imageInfo: itemUrl.href
         })
       }
 
