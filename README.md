@@ -1,16 +1,19 @@
 # <img src="build/icons/128x128.png" width="64px" align="center" alt="Excel Parser Processor"> Excel Parser Processor
 
-Simply generates an array of items from the rows of a given excel file and do the tedious operations step by step 
-recursively till every item of the array is processed.
+### A Cross-Platform Desktop App for processing all rows of excel files
+
+Simply generates an array of items from the rows of an excel file and does the repetitive tedious operations step by step 
+recursively till every item of the array is processed. For example downloading all the URL's in an excel file.
 
 [![Dependency Status][david_img]][david_site]
 [![Build Status][travis_img]][travis_site]
 [![Github Tag][github-tag-image]][github-tag-url]
 
-### A Cross-Platform Desktop App for processing all rows of excel files
+#### How to use the app
 
 Just select or drag & drop an excel file, then select the output folder for the downloaded images or files. All of the 
-items in the excel file will be downloaded for you.
+items in the excel file will be downloaded into the selected folder and you will be notified about the state of ongoing
+progress.
 
 #### Sample Excel file structure
 
@@ -27,6 +30,35 @@ items in the excel file will be downloaded for you.
 
 Currently there is no limit for n, I tested with 4000 items and unless your IP is not banned from the publisher there 
 is no problem to download as much as you can.
+
+#### Development
+
+You need to have [Node.js](https://nodejs.org) installed on your computer in order to build this app.
+
+```bash
+$ git clone https://github.com/btargac/excel-parser-processor.git
+$ cd excel-parser-processor
+$ npm install
+$ npm run build
+$ npm start
+```
+
+If you are changing the view or renderer related things, you can use webpack's watch feature with
+
+```bash
+$ npm run start-renderer-dev
+```
+
+After running this command, you'll see a webpack process watching your filesi after a new renderer.bundle.js is generated
+you can refresh the excel parser processor app window with `cmd + R` or `ctrl + R` depending on your system.
+
+To generate binaries on your computer after your development is completed, you can run
+
+```bash
+$ npm run dist
+```
+
+command. This will add binaries under /release folder on your project folder.
 
 [david_img]: https://david-dm.org/btargac/excel-parser-processor/status.svg
 [david_site]: https://david-dm.org/btargac/excel-parser-processor
