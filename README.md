@@ -1,4 +1,4 @@
-# <img src="https://github.com/btargac/excel-parser-processor/blob/master/build/icons/128x128.png" width="64px" align="center" alt="Excel Parser Processor"> Excel Parser Processor
+# <img src="build/icons/128x128.png" width="64px" align="center" alt="Excel Parser Processor"> Excel Parser Processor
 
 Simply generates an array of items from the rows of a given excel file and do the tedious operations step by step 
 recursively till every item of the array is processed.
