@@ -33,7 +33,7 @@ is no problem to download as much as you can.
 
 #### Development
 
-You need to have [Node.js](https://nodejs.org) installed on your computer in order to build this app.
+You need to have [Node.js](https://nodejs.org) installed on your computer in order to develop & build this app.
 
 ```bash
 $ git clone https://github.com/btargac/excel-parser-processor.git
@@ -52,13 +52,15 @@ $ npm run start-renderer-dev
 After running this command, you'll see a webpack process watching your filesi after a new renderer.bundle.js is generated
 you can refresh the excel parser processor app window with `cmd + R` or `ctrl + R` depending on your system.
 
-To generate binaries on your computer after your development is completed, you can run
+To generate binaries on your computer after your development is completed, you can run;
 
 ```bash
 $ npm run dist
 ```
 
-command. This will add binaries under /release folder on your project folder.
+This will add binaries under /release folder on your project folder.
+
+/release folder is ignored at the repository. Travis will be building the binaries after your branch is merged with master.
 
 [david_img]: https://david-dm.org/btargac/excel-parser-processor/status.svg
 [david_site]: https://david-dm.org/btargac/excel-parser-processor
