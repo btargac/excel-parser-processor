@@ -9,7 +9,10 @@ recursively till every item of the array is processed. For example downloading a
 [![Build Status][travis_img]][travis_site]
 [![Github Tag][github-tag-image]][github-tag-url]
 
-#### How to use the app
+#### How to use
+
+You can [download the latest release](https://github.com/btargac/excel-parser-processor/releases) for your operating system
+or build it yourself (see [Development](#development)).
 
 Just select or drag & drop an excel file, then select the output folder for the downloaded images or files. All of the 
 items in the excel file will be downloaded into the selected folder and you will be notified about the state of ongoing
@@ -61,6 +64,9 @@ $ npm run dist
 This will add binaries under /release folder on your project folder.
 
 /release folder is ignored at the repository. Travis will be building the binaries after your branch is merged with master.
+
+#### License
+MIT © [Burak Targaç](https://github.com/btargac)
 
 [david_img]: https://david-dm.org/btargac/excel-parser-processor/status.svg
 [david_site]: https://david-dm.org/btargac/excel-parser-processor
