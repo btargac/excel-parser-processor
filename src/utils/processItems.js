@@ -62,8 +62,14 @@ export const processFile = (filePath, outputPath, browserWindow) => {
 
   processedItemsCount = 0;
 
-  browserWindow.webContents.send('process-started');
+  if(initialItemsLength) {
+    browserWindow.webContents.send('process-started');
 
-  processItems(rowItems, filePath, outputPath, browserWindow);
+    processItems(rowItems, filePath, outputPath, browserWindow);
+  } else {
+    browserWindow.webContents.send('file-error', {
+      message: 'No item to process'
+    });
+  }
 
 };

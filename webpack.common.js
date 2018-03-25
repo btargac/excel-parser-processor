@@ -10,8 +10,8 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const cleanDist = new CleanWebpackPlugin(['dist']);
 
 const extractSass = new ExtractTextPlugin({
-  filename: "[name].[contenthash:12].css",
-  disable: process.env.NODE_ENV === "development"
+  filename: '[name].[contenthash:12].css',
+  disable: process.env.NODE_ENV === 'development'
 });
 
 const processHtml = new HtmlWebpackPlugin({
