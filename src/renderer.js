@@ -115,9 +115,11 @@ const update = (percent) => {
 };
 
 const processStartHandler = () => {
+
   $progress.addClass('progress--active');
   $progress.show();
   $('.wrapper').hide();
+
 };
 
 const progressHandler = (event, percentage) => update(percentage);
@@ -130,21 +132,31 @@ const processCompletedHandler = () => {
     $('.wrapper').show();
     $progress.hide();
   }, 3000);
+
 };
 
 const processErrorHandler = (event, data) => {
 
   const oldText = $(errorArea).text();
 
-  $(errorArea).text(`${oldText} | ${data.imageInfo} ${data.statusText}`).show().animate({
+  $(errorArea).text(`${oldText.length ? oldText + ' |' : oldText} ${data.imageInfo} ${data.statusText}`).show().animate({
     bottom: '10%'
   }, 'slow');
+
+};
+
+const fileErrorHandler = (event, data) => {
+
+  $(errorArea).text(`${data.message}`).show().animate({
+    bottom: '10%'
+  }, 'slow');
+
 };
 
 errorArea.addEventListener('click', () => {
   $(errorArea).animate({
     bottom: 0
-  }, 'slow', function() { $(this).hide()});
+  }, 'slow', function() { $(this).hide().text('')});
 });
 
 const disableDrop = event => {
@@ -163,3 +175,4 @@ ipcRenderer.on('process-started', processStartHandler);
 ipcRenderer.on('process-completed', processCompletedHandler);
 ipcRenderer.on('progress', progressHandler);
 ipcRenderer.on('process-error', processErrorHandler);
+ipcRenderer.on('file-error', fileErrorHandler);
