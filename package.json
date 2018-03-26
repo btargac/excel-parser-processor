@@ -61,7 +61,7 @@
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "electron": "^2.0.0-beta.5",
-    "electron-builder": "^20.7.1",
+    "electron-builder": "^20.8.0",
     "electron-icon-maker": "0.0.4",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-webpack-exclude-assets-plugin": "^0.0.7",
@@ -79,7 +79,7 @@
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
     "@fortawesome/fontawesome-free-solid": "^5.0.8",
-    "is-url": "^1.2.3",
+    "is-url": "^1.2.4",
     "jquery": "^3.3.1",
     "node-fetch": "^2.1.2",
     "node-xlsx": "^0.12.0",
