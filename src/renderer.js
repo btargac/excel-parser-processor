@@ -3,13 +3,16 @@ import $ from 'jquery';
 
 // we also need to process some styles with webpack
 import fontawesome from '@fortawesome/fontawesome';
-import { faCloudUploadAlt } from '@fortawesome/fontawesome-free-solid';
+import { faCloudUploadAlt, faExclamationCircle, faCheckCircle } from '@fortawesome/fontawesome-free-solid';
 fontawesome.library.add(faCloudUploadAlt);
+fontawesome.library.add(faExclamationCircle);
+fontawesome.library.add(faCheckCircle);
 import './styles/index.scss';
 
 const drop = document.querySelector('input');
 const filesInput = document.querySelector('#files');
 const errorArea = document.querySelector('.error-toast');
+const notificationArea = document.querySelector('.notification-toast');
 
 const handleIn = () => {
 
@@ -124,22 +127,35 @@ const processStartHandler = () => {
 
 const progressHandler = (event, percentage) => update(percentage);
 
-const processCompletedHandler = () => {
+const processCompletedHandler = (event, { processedItemsCount, incompatibleItems, erroneousItems, logFilePath }) => {
 
-  setTimeout(()=> {
-    resetColors();
-    update(0);
-    $('.wrapper').show();
-    $progress.hide();
-  }, 3000);
+  $(notificationArea).find('.text').text(
+    [
+      `${processedItemsCount} item(s) processed,`,
+      `${incompatibleItems.length} item(s) skipped,`,
+      `${erroneousItems.length} item(s) erroneous,`,
+      `Log file ${logFilePath} is written on disk.`
+    ].join('\r\n')
+  );
+
+  $(notificationArea).show().animate({
+    top: '10%'
+  }, 'slow');
 
 };
 
 const processErrorHandler = (event, data) => {
 
-  const oldText = $(errorArea).text();
+  const oldText = $(errorArea).find('.text').text();
 
-  $(errorArea).text(`${oldText.length ? oldText + ' |' : oldText} ${data.imageInfo} ${data.statusText}`).show().animate({
+  $(errorArea).find('.text').text(
+    [
+      `${oldText}`,
+      `${data.itemInfo} ${data.statusText}`
+    ].join('\r\n')
+  );
+
+  $(errorArea).show().animate({
     bottom: '10%'
   }, 'slow');
 
@@ -147,17 +163,44 @@ const processErrorHandler = (event, data) => {
 
 const fileErrorHandler = (event, data) => {
 
-  $(errorArea).text(`${data.message}`).show().animate({
+  $(errorArea).find('.text').text(`${data.message}`);
+
+  $(errorArea).show().animate({
     bottom: '10%'
   }, 'slow');
 
 };
 
-errorArea.addEventListener('click', () => {
+const resetProcess = () => {
+
+  resetColors();
+  update(0);
+  $('.wrapper').show();
+  $progress.hide();
+
+};
+
+const errorAreaClickHandler = () => {
+
   $(errorArea).animate({
     bottom: 0
-  }, 'slow', function() { $(this).hide().text('')});
-});
+  }, 'slow', function() { $(this).hide().find('.text').text('')});
+
+};
+
+const notificationAreaClickHandler = () => {
+
+  $(notificationArea).animate({
+    top: 0
+  }, 'slow', function() { $(this).hide().find('.text').text('')});
+
+  errorAreaClickHandler();
+  resetProcess();
+};
+
+errorArea.addEventListener('click', errorAreaClickHandler);
+
+notificationArea.addEventListener('click', notificationAreaClickHandler);
 
 const disableDrop = event => {
   if(event.target !== filesInput) {
