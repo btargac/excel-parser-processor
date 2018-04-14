@@ -5,9 +5,16 @@ import {URL} from "url";
 import xlsx from "node-xlsx";
 import isUrl from "is-url";
 
-let initialItemsLength = 0;
+let initialItemsLength;
+let processedItemsCount;
+let incompatibleItems;
+let erroneousItems = [];
 
-let processedItemsCount = 0;
+const _resetProcessData = () => {
+  initialItemsLength = 0;
+  processedItemsCount = 0;
+  erroneousItems.length = 0;
+};
 
 const processItems = (rowItems, filePath, outputPath, win) => {
 
@@ -30,20 +37,47 @@ const processItems = (rowItems, filePath, outputPath, win) => {
         if (rowItems.length) {
           processItems(rowItems, filePath, outputPath, win);
         } else {
-          console.log('process completed');
-          win.webContents.send('process-completed');
+
+          const logFileStream = fs.createWriteStream(path.join(
+            outputPath,
+            `excel-parser-processor-log${Date.now()}.txt`)
+          );
+
+          logFileStream.write(
+            [
+              `Processed Items Count: ${processedItemsCount}`,
+              '-----',
+              `Incompatible Items Count: ${incompatibleItems.length};`,
+              `${incompatibleItems.join('\r\n')}`,
+              '-----',
+              `Erroneous Items Count: ${erroneousItems.length};`,
+              `${erroneousItems.join('\r\n')}`,
+              '-----'
+            ].join('\r\n'), 'utf8');
+
+          logFileStream.on('finish', () => {
+            win.webContents.send('process-completed', {
+              processedItemsCount,
+              incompatibleItems,
+              erroneousItems,
+              logFilePath: logFileStream.path
+            });
+          });
+
+          logFileStream.end();
         }
 
       } else {
         return Promise.reject({
           status: response.status,
           statusText: response.statusText,
-          imageInfo: itemUrl.href
+          itemInfo: itemUrl.href
         })
       }
 
     })
     .catch(err => {
+      erroneousItems.push(err.itemInfo);
       win.webContents.send('process-error', err);
       processItems(rowItems, filePath, outputPath, win);
     });
@@ -52,15 +86,17 @@ const processItems = (rowItems, filePath, outputPath, win) => {
 
 export const processFile = (filePath, outputPath, browserWindow) => {
 
+  _resetProcessData();
+
   const workSheetsFromFile = xlsx.parse(filePath);
 
-  const pagesWithData = workSheetsFromFile.filter(page => page.data.length);
+  const pagesWithData = workSheetsFromFile.filter(page => page.data.length).reduce((prev, curr) => prev.concat(...curr.data), []);
 
-  const rowItems = pagesWithData.reduce((prev, curr) => prev.concat(...curr.data), []).filter(text => isUrl(text));
+  const rowItems = pagesWithData.filter(text => isUrl(text));
+
+  incompatibleItems = pagesWithData.filter(text => !isUrl(text));
 
   initialItemsLength = rowItems.length;
-
-  processedItemsCount = 0;
 
   if(initialItemsLength) {
     browserWindow.webContents.send('process-started');

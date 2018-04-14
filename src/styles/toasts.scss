@@ -1,0 +1,32 @@
+.error-toast, .notification-toast {
+  display: none;
+  position: absolute;
+  text-align: center;
+  width: 70%;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+  padding: 1rem;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  margin: 0 auto;
+
+  .text {
+    display: block;
+    padding: 1rem;
+    white-space: pre-wrap;
+    text-align: left;
+  }
+
+}
+
+.error-toast {
+  background-color: rgba(156, 41, 49, 0.8);
+  bottom: 0;
+}
+
+.notification-toast {
+  background-color: rgba(71, 70, 139, 0.8);
+  top: 0;
+}

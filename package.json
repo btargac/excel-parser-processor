@@ -1,7 +1,7 @@
 {
   "name": "excel-parser-processor",
   "productName": "Excel Parser Processor",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Does the tedious processing over all items of a given excel file by converting the rows to an array and process all items of that array recursively",
   "main": "./dist/index.bundle.js",
   "scripts": {
@@ -69,7 +69,7 @@
     "jest": "^22.4.3",
     "node-sass": "^4.8.3",
     "npm-run-all": "^4.1.2",
-    "sass-loader": "^6.0.7",
+    "sass-loader": "^7.0.1",
     "script-ext-html-webpack-plugin": "^2.0.1",
     "style-loader": "^0.20.2",
     "uglifyjs-webpack-plugin": "^1.2.4",
@@ -78,7 +78,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.5",
-    "@fortawesome/fontawesome-free-solid": "^5.0.9",
+    "@fortawesome/fontawesome-free-solid": "^5.0.10",
     "is-url": "^1.2.4",
     "jquery": "^3.3.1",
     "node-fetch": "^2.1.2",
@@ -97,6 +97,17 @@
     ],
     "directories": {
       "output": "release"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis-web",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
     }
   },
   "publish": {
