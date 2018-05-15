@@ -31,7 +31,7 @@ progress.
 
 <br/>
 
-Currently there is no limit for n, I tested with 4000 items and unless your IP is not banned from the publisher there 
+Currently there is no limit for `n`, I tested with 4000 items and unless your IP is banned from the publisher there 
 is no problem to download as much as you can.
 
 #### Development
@@ -52,7 +52,7 @@ If you are changing the view or renderer related things, you can use webpack's w
 $ npm run start-renderer-dev
 ```
 
-After running this command, you'll see a webpack process watching your filesi after a new renderer.bundle.js is generated
+After running this command, you'll see a webpack process watching your files after a new renderer.bundle.js is generated
 you can refresh the excel parser processor app window with `cmd + R` or `ctrl + R` depending on your system.
 
 To generate binaries on your computer after your development is completed, you can run;
