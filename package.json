@@ -14,7 +14,8 @@
     "test": "jest --coverage",
     "test-watch": "jest --coverage --watch",
     "pack": "electron-builder build --dir",
-    "dist": "electron-builder build"
+    "dist": "electron-builder build",
+    "postinstall": "opencollective postinstall"
   },
   "jest": {
     "transform": {
@@ -83,7 +84,8 @@
     "jquery": "^3.3.1",
     "node-fetch": "^2.1.2",
     "node-xlsx": "^0.12.0",
-    "normalize.css": "^8.0.0"
+    "normalize.css": "^8.0.0",
+    "opencollective": "^1.0.3"
   },
   "build": {
     "appId": "com.Targac.ExcelParserProcessor",
@@ -113,5 +115,9 @@
   "publish": {
     "provider": "github",
     "owner": "Burak Targaç"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/excel-parser-processor"
   }
 }
