@@ -16,5 +16,6 @@ switch (processType) {
 module.exports = merge(config, {
   plugins: [
     new UglifyJSPlugin()
-  ]
+  ],
+  mode: 'production'
 });
