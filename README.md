@@ -8,8 +8,9 @@ recursively till every item of the array is processed. For example downloading a
 [![Dependency Status][david_img]][david_site]
 [![Build Status][travis_img]][travis_site]
 [![Github Tag][github-tag-image]][github-tag-url]
+[![codecov][codecov-image]][codecov-url]
 [![Backers on Open Collective](https://opencollective.com/excel-parser-processor/backers/badge.svg)](#backers)
- [![Sponsors on Open Collective](https://opencollective.com/excel-parser-processor/sponsors/badge.svg)](#sponsors) 
+[![Sponsors on Open Collective](https://opencollective.com/excel-parser-processor/sponsors/badge.svg)](#sponsors)
 
 #### How to use
 
@@ -108,3 +109,6 @@ MIT © [Burak Targaç](https://github.com/btargac)
 
 [github-tag-image]: https://img.shields.io/github/tag/btargac/excel-parser-processor.svg
 [github-tag-url]: https://github.com/btargac/excel-parser-processor/releases/latest
+
+[codecov-image]: https://codecov.io/gh/btargac/excel-parser-processor/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/btargac/excel-parser-processor
