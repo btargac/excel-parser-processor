@@ -9,12 +9,17 @@ osx_image: xcode9.2
 node_js:
   - "9"
 
+install:
+  - npm install -g codecov
+
 cache:
   directories:
     - "node_modules"
 
 script:
     - npm run build
+    - npm run test
+    - codecov
 
 after_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm run dist; fi

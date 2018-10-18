@@ -11,13 +11,15 @@
     "generate-icons": "electron-icon-maker --input=./build-assets/icon.png --output=./build/",
     "start-renderer-dev": "cross-env NODE_ENV=development PROCESS_TYPE=renderer webpack --watch --config webpack.dev.js",
     "start": "electron ./dist/index.bundle.js",
-    "test": "jest --coverage",
+    "test": "jest && codecov",
     "test-watch": "jest --coverage --watch",
     "pack": "electron-builder build --dir",
     "dist": "electron-builder build",
     "postinstall": "opencollective postinstall"
   },
   "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
