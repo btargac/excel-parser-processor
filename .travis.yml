@@ -7,7 +7,7 @@ os:
 osx_image: xcode9.2
 
 node_js:
-  - "9"
+  - "10"
 
 install:
   - npm install -g codecov

@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import fetch from "node-fetch";
+import fetch from "electron-fetch";
 import {URL} from "url";
 import xlsx from "node-xlsx";
 import isUrl from "is-url";
