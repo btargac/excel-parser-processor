@@ -16,5 +16,6 @@ module.exports = merge(config, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist'
-  }
+  },
+  mode: 'development'
 });

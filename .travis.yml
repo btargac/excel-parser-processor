@@ -4,10 +4,13 @@ os:
   - linux
   - osx
 
-osx_image: xcode9.2
+osx_image: xcode10.1
 
 node_js:
-  - "10"
+  - "node"
+
+before_install:
+  - npm install -g codecov
 
 cache:
   directories:
@@ -15,6 +18,8 @@ cache:
 
 script:
     - npm run build
+    - npm run test
+    - codecov
 
 after_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm run dist; fi

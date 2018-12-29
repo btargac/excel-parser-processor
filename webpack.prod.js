@@ -1,5 +1,4 @@
 const merge = require('webpack-merge');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const { mainConfig, rendererConfig } = require('./webpack.common.js');
 const processType = process.env.PROCESS_TYPE;
 
@@ -14,7 +13,5 @@ switch (processType) {
 }
 
 module.exports = merge(config, {
-  plugins: [
-    new UglifyJSPlugin()
-  ]
+  mode: 'production'
 });
