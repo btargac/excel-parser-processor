@@ -1,26 +1,24 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+
+const devMode = process.env.NODE_ENV === 'development';
 
 // define webpack plugins
 const cleanDist = new CleanWebpackPlugin(['dist']);
 
-const extractSass = new ExtractTextPlugin({
-  filename: '[name].[contenthash:12].css',
-  disable: process.env.NODE_ENV === 'development'
+const extractSass = new MiniCssExtractPlugin({
+  filename: devMode ? '[name].css' : '[name].[contenthash:12].css',
+  chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
 });
 
 const processHtml = new HtmlWebpackPlugin({
-  excludeAssets: [/index.*\.js/],
   template: './src/index.html',
   title: 'Simply process excel files',
 });
-
-const excludeAssets = new HtmlWebpackExcludeAssetsPlugin();
 
 const scriptExtension = new ScriptExtHtmlWebpackPlugin({
   defaultAttribute: 'defer'
@@ -69,8 +67,7 @@ const rendererConfig = {
   plugins: [
     extractSass,
     processHtml,
-    scriptExtension,
-    excludeAssets
+    scriptExtension
   ],
   module: {
     rules: [
@@ -87,10 +84,11 @@ const rendererConfig = {
       },
       {
         test: /\.scss$/,
-        use: extractSass.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
