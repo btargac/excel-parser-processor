@@ -4,10 +4,10 @@ os:
   - linux
   - osx
 
-osx_image: xcode9.2
+osx_image: xcode10.1
 
 node_js:
-  - "10"
+  - "node"
 
 before_install:
   - npm install -g codecov
