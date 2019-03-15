@@ -26,9 +26,9 @@ progress.
 
 |               | A                                                                 |
 | ------------- | :---------------------------------------------------------------- |
-| 1             | http://www.buraktargac.com/sample_image.gif                       |
-| 2             | http://www.buraktargac.com/sample_image.png                       |
-| 3             | http://www.buraktargac.com/sample_image.jpg                       |
+| 1             | https://www.buraktargac.com/sample_image.gif                       |
+| 2             | https://www.buraktargac.com/sample_image.png                       |
+| 3             | https://www.buraktargac.com/sample_image.jpg                       |
 | .             | ...                                                               |
 | .             | ...                                                               |
 | n             | Asset URL ( can be any type of file jpg, jpeg, png, txt, doc, etc)|
@@ -37,6 +37,9 @@ progress.
 
 Currently there is no limit for `n`, I tested with 4000 items and unless your IP is banned from the publisher there 
 is no problem to download as much as you can.
+
+#### Demo
+<img src="excel-parser-processor.gif" width="640px" height="480px" align="center" alt="Excel Parser Processor Demo">
 
 #### Development
 
