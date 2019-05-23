@@ -68,9 +68,9 @@ To generate binaries on your computer after your development is completed, you c
 $ npm run dist
 ```
 
-This will add binaries under /release folder on your project folder.
+This will add binaries under `/release` folder on your project folder.
 
-/release folder is ignored at the repository. Travis will be building the binaries after your branch is merged with master.
+`/release` folder is ignored at the repository. Travis will be building the binaries after your branch is merged with master.
 
 ## Contributors
 
