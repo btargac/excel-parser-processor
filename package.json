@@ -1,7 +1,7 @@
 {
   "name": "excel-parser-processor",
   "productName": "Excel Parser Processor",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Does the tedious processing over all items of a given excel file by converting the rows to an array and process all items of that array recursively",
   "main": "./dist/index.bundle.js",
   "scripts": {
