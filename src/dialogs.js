@@ -6,11 +6,11 @@ export const showOpenDialog = (browserWindow, defaultPath, cb) => {
     defaultPath,
     title: "Choose an output folder",
     properties: ['openDirectory', 'createDirectory']
-  }, (filePaths) => {
-    if(filePaths && filePaths.length) {
-
+  }).then(({ canceled, filePaths }) => {
+    if( !canceled && filePaths?.length) {
       cb(defaultPath, filePaths[0], browserWindow);
-
     }
-  });
+  }).catch(err => {
+    console.log(err);
+  })
 };

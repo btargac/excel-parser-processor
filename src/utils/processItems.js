@@ -1,110 +1,128 @@
 import path from 'path';
-import fs from 'fs';
-import fetch from "electron-fetch";
-import {URL} from "url";
-import xlsx from "node-xlsx";
-import isUrl from "is-url";
+import { createWriteStream } from 'fs';
+import fetch from 'electron-fetch';
+import { URL } from 'url';
+import xlsx from 'node-xlsx';
+import isUrl from 'is-url';
 
 let initialItemsLength;
 let processedItemsCount;
-let incompatibleItems;
+let incompatibleItems = [];
 let erroneousItems = [];
 
 const _resetProcessData = () => {
   initialItemsLength = 0;
   processedItemsCount = 0;
+  incompatibleItems.length = 0;
   erroneousItems.length = 0;
 };
 
-const processItems = (rowItems, filePath, outputPath, win) => {
+const processItem = async (item, outputPath) => {
 
-  const itemUrl = new URL(rowItems.pop());
+  const [ itemUrl, newName ] = item;
+  const url = new URL(itemUrl);
+  const itemName = newName ? `${newName}${path.extname(url.pathname)}` : path.basename(url.pathname);
 
-  const itemName = path.basename(itemUrl.pathname);
+  const response = await fetch(itemUrl);
 
-  fetch(itemUrl)
-    .then(response => {
+  if (response.ok) {
 
-      if (response.ok) {
+    const dest = createWriteStream(path.join(outputPath, itemName));
+    response.body.pipe(dest);
 
-        const dest = fs.createWriteStream(path.join(outputPath, itemName));
-        response.body.pipe(dest);
-
-        const percentage = Math.abs(++processedItemsCount / initialItemsLength) * 100;
-
-        win.webContents.send('progress', percentage);
-
-        if (rowItems.length) {
-          processItems(rowItems, filePath, outputPath, win);
-        } else {
-
-          const logFileStream = fs.createWriteStream(path.join(
-            outputPath,
-            `excel-parser-processor-log${Date.now()}.txt`)
-          );
-
-          logFileStream.write(
-            [
-              `Processed Items Count: ${processedItemsCount}`,
-              '-----',
-              `Incompatible Items Count: ${incompatibleItems.length};`,
-              `${incompatibleItems.join('\r\n')}`,
-              '-----',
-              `Erroneous Items Count: ${erroneousItems.length};`,
-              `${erroneousItems.join('\r\n')}`,
-              '-----'
-            ].join('\r\n'), 'utf8');
-
-          logFileStream.on('finish', () => {
-            win.webContents.send('process-completed', {
-              processedItemsCount,
-              incompatibleItems,
-              erroneousItems,
-              logFilePath: logFileStream.path
-            });
-          });
-
-          logFileStream.end();
-        }
-
-      } else {
-        return Promise.reject({
-          status: response.status,
-          statusText: response.statusText,
-          itemInfo: itemUrl.href
-        })
-      }
-
-    })
-    .catch(err => {
-      erroneousItems.push(err.itemInfo);
-      win.webContents.send('process-error', err);
-      processItems(rowItems, filePath, outputPath, win);
-    });
+  } else {
+    throw {
+      status: response.status,
+      statusText: response.statusText,
+      itemInfo: url.href
+    }
+  }
 
 };
 
-export const processFile = (filePath, outputPath, browserWindow) => {
+const processItems = async (rowItems, outputPath, win) => {
+  const itemsLength = rowItems.length;
+
+  for (let i = 0; i < itemsLength; i += 20) {
+    const requests = rowItems.slice(i, i + 20).map((item) => {
+      return processItem(item, outputPath)
+        .then(() => {
+          const unprocessedItems = erroneousItems.length + incompatibleItems.length;
+          const percentage = Math.abs(++processedItemsCount / (initialItemsLength - unprocessedItems)) * 100;
+
+          win.webContents.send('main-message', {
+            type: 'progress',
+            data: percentage
+          });
+        })
+        .catch(err => {
+          erroneousItems.push(err.itemInfo);
+
+          win.webContents.send('main-message', {
+            type: 'process-error',
+            data: err
+          });
+        });
+    });
+
+    await Promise.all(requests)
+      .catch(e => console.log(`Error processing for the batch ${i} - ${e}`));
+  }
+
+  const logFileStream = createWriteStream(path.join(
+    outputPath,
+    `excel-parser-processor-log${Date.now()}.txt`)
+  );
+
+  logFileStream.write(
+    [
+      `Processed Items Count: ${processedItemsCount}`,
+      '-----',
+      `Incompatible Items Count: ${incompatibleItems.length};`,
+      `${incompatibleItems.join('\r\n')}`,
+      '-----',
+      `Erroneous Items Count: ${erroneousItems.length};`,
+      `${erroneousItems.join('\r\n')}`,
+      '-----'
+    ].join('\r\n'), 'utf8');
+
+  logFileStream.on('finish', () => {
+    win.webContents.send('main-message', {
+      type: 'process-completed',
+      data: {
+        processedItemsCount,
+        incompatibleItems,
+        erroneousItems,
+        logFilePath: logFileStream.path
+      }
+    });
+  });
+
+  logFileStream.end();
+};
+
+export const processFile = async (filePath, outputPath, browserWindow) => {
 
   _resetProcessData();
 
   const workSheetsFromFile = xlsx.parse(filePath);
+  const dataRows = workSheetsFromFile.flatMap(page => page.data).filter(item => item.length);
+  const validRows = dataRows.filter(row => row.some(text => isUrl(text)));
 
-  const pagesWithData = workSheetsFromFile.filter(page => page.data.length).reduce((prev, curr) => prev.concat(...curr.data), []);
+  incompatibleItems = dataRows.filter(row => !row.some(text => isUrl(text)));
 
-  const rowItems = pagesWithData.filter(text => isUrl(text));
+  initialItemsLength = validRows.length;
 
-  incompatibleItems = pagesWithData.filter(text => !isUrl(text));
+  if (initialItemsLength) {
+    browserWindow.webContents.send('main-message', {
+      type: 'process-started'
+    });
 
-  initialItemsLength = rowItems.length;
-
-  if(initialItemsLength) {
-    browserWindow.webContents.send('process-started');
-
-    processItems(rowItems, filePath, outputPath, browserWindow);
+    await processItems(validRows, outputPath, browserWindow);
   } else {
-    browserWindow.webContents.send('file-error', {
-      message: 'No item to process'
+    browserWindow.webContents.send('main-message', {
+      type: 'file-error',
+      data: 'No item to process'
     });
   }
 

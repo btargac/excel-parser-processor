@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src	https://fonts.gstatic.com;">
   <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
@@ -17,7 +17,7 @@
         Excel processor
       </h1>
       <p class="app__description">
-        Select the excel file, and the output folder, Excel Processor wil handle the rest.
+        Select the excel file, and the output folder, Excel Processor will handle the rest.
       </p>
     </div>
   </div>
