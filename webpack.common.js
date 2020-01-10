@@ -1,5 +1,5 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,7 +8,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const devMode = process.env.NODE_ENV === 'development';
 
 // define webpack plugins
-const cleanDist = new CleanWebpackPlugin(['dist']);
+const cleanDist = new CleanWebpackPlugin();
 
 const extractSass = new MiniCssExtractPlugin({
   filename: devMode ? '[name].css' : '[name].[contenthash:12].css',
@@ -25,27 +25,34 @@ const scriptExtension = new ScriptExtHtmlWebpackPlugin({
 });
 
 const mainConfig = {
+  name: 'main',
   entry: {
     index: './src/index.js'
   },
   plugins: [
     cleanDist,
-    new CopyWebpackPlugin([{
-      from: './src/images/',
-      to: 'images',
-      toType: 'dir'
-    }]),
+    new CopyWebpackPlugin([
+      {
+        from: './src/images/',
+        to: 'images',
+        toType: 'dir'
+      },
+      {
+        from: './src/preload.js',
+        to: 'preload.js',
+        toType: 'file'
+      }
+    ])
   ],
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/transform-runtime']
+            'cacheDirectory': true,
           }
         }
       }
@@ -61,6 +68,7 @@ const mainConfig = {
 };
 
 const rendererConfig = {
+  name: 'renderer',
   entry: {
     renderer: './src/renderer.js'
   },
@@ -77,8 +85,7 @@ const rendererConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/transform-runtime']
+            'cacheDirectory': true,
           }
         }
       },

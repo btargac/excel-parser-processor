@@ -2,7 +2,7 @@
 
 ### A Cross-Platform Desktop App for processing all rows of excel files
 
-Simply generates an array of items from the rows of an excel file and does the repetitive tedious operations step by step 
+Simply generates an array of items from the rows of an excel file and does the repetitive tedious operations step by step
 recursively till every item of the array is processed. For example downloading all the URL's in an excel file.
 
 [![Dependency Status][david_img]][david_site]
@@ -10,7 +10,7 @@ recursively till every item of the array is processed. For example downloading a
 [![Github Tag][github-tag-image]][github-tag-url]
 [![codecov][codecov-image]][codecov-url]
 [![Backers on Open Collective](https://opencollective.com/excel-parser-processor/backers/badge.svg)](#backers)
-[![Sponsors on Open Collective](https://opencollective.com/excel-parser-processor/sponsors/badge.svg)](#sponsors) 
+[![Sponsors on Open Collective](https://opencollective.com/excel-parser-processor/sponsors/badge.svg)](#sponsors)
 [![Open Source Helpers](https://www.codetriage.com/btargac/excel-parser-processor/badges/users.svg)](https://www.codetriage.com/btargac/excel-parser-processor)
 
 #### How to use
@@ -18,24 +18,24 @@ recursively till every item of the array is processed. For example downloading a
 You can [download the latest release](https://github.com/btargac/excel-parser-processor/releases) for your operating system
 or build it yourself (see [Development](#development)).
 
-Just select or drag & drop an excel file, then select the output folder for the downloaded images or files. All of the 
+Just select or drag & drop an excel file, then select the output folder for the downloaded images or files. All of the
 items in the excel file will be downloaded into the selected folder and you will be notified about the state of ongoing
 progress.
 
 #### Sample Excel file structure
 
-|               | A                                                                 |
-| ------------- | :---------------------------------------------------------------- |
-| 1             | https://www.buraktargac.com/sample_image.gif                       |
-| 2             | https://www.buraktargac.com/sample_image.png                       |
-| 3             | https://www.buraktargac.com/sample_image.jpg                       |
-| .             | ...                                                               |
-| .             | ...                                                               |
-| n             | Asset URL ( can be any type of file jpg, jpeg, png, txt, doc, etc)|
+|               | A                                                                 | B                         |
+| ------------- | :---------------------------------------------------------------- | :-------------------------|
+| 1             | https://www.buraktargac.com/sample_image.gif                      | optional-sample-file-name |
+| 2             | https://www.buraktargac.com/sample_image.png                      | optional-sample-file-name |
+| 3             | https://www.buraktargac.com/sample_image.jpg                      |                           |
+| .             | ...                                                               |                           |
+| .             | ...                                                               |                           |
+| n             | Asset URL ( can be any type of file jpg, jpeg, png, txt, doc, etc)|                           |
 
 <br/>
 
-Currently there is no limit for `n`, I tested with 4000 items and unless your IP is banned from the publisher there 
+Currently there is no limit for `n`, I tested with 4000 items and unless your IP is banned from the publisher there
 is no problem to download as much as you can.
 
 #### Demo

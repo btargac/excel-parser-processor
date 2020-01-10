@@ -1,4 +1,3 @@
-import { ipcRenderer } from 'electron';
 import $ from 'jquery';
 
 // we also need to process some styles with webpack
@@ -46,7 +45,7 @@ const outEvents = ['dragleave', 'dragend', 'mouseout', 'drop'];
 inEvents.forEach(event => drop.addEventListener(event, handleIn));
 outEvents.forEach(event => drop.addEventListener(event, handleOut));
 
-const handleFileSelect = (event) => {
+const handleFileSelect = event => {
   const files = event.target.files;
 
   for (let file of files) {
@@ -56,7 +55,10 @@ const handleFileSelect = (event) => {
       continue;
     }
 
-    ipcRenderer.send('file-dropped', file.path);
+    window.postMessage({
+      type: 'file-dropped',
+      data: file.path
+    }, '*');
   }
 
   event.preventDefault();
@@ -125,13 +127,13 @@ const processStartHandler = () => {
 
 };
 
-const progressHandler = (event, percentage) => update(percentage);
+const progressHandler = percentage => update(percentage);
 
-const processCompletedHandler = (event, { processedItemsCount, incompatibleItems, erroneousItems, logFilePath }) => {
+const processCompletedHandler = ({ processedItemsCount, incompatibleItems, erroneousItems, logFilePath }) => {
 
   $(notificationArea).find('.text').text(
     [
-      `${processedItemsCount} item(s) processed,`,
+      `${processedItemsCount} item(s) successfully processed,`,
       `${incompatibleItems.length} item(s) skipped,`,
       `${erroneousItems.length} item(s) erroneous,`,
       `Log file ${logFilePath} is written on disk.`
@@ -144,7 +146,7 @@ const processCompletedHandler = (event, { processedItemsCount, incompatibleItems
 
 };
 
-const processErrorHandler = (event, data) => {
+const processErrorHandler = data => {
 
   const oldText = $(errorArea).find('.text').text();
 
@@ -161,9 +163,9 @@ const processErrorHandler = (event, data) => {
 
 };
 
-const fileErrorHandler = (event, data) => {
+const fileErrorHandler = data => {
 
-  $(errorArea).find('.text').text(`${data.message}`);
+  $(errorArea).find('.text').text(`${data}`);
 
   $(errorArea).show().animate({
     bottom: '10%'
@@ -214,8 +216,24 @@ const disableDrop = event => {
   document.addEventListener(event, disableDrop);
 });
 
-ipcRenderer.on('process-started', processStartHandler);
-ipcRenderer.on('process-completed', processCompletedHandler);
-ipcRenderer.on('progress', progressHandler);
-ipcRenderer.on('process-error', processErrorHandler);
-ipcRenderer.on('file-error', fileErrorHandler);
+window.addEventListener('message', event => {
+  const message = event.data;
+  const { data, type } = message;
+
+  switch (type) {
+    case 'process-started':
+      processStartHandler();
+      break;
+    case 'process-completed':
+      processCompletedHandler(data);
+      break;
+    case 'progress':
+      progressHandler(data);
+      break;
+    case 'process-error':
+      processErrorHandler(data);
+      break;
+    case 'file-error':
+      fileErrorHandler(data);
+  }
+});

@@ -11,7 +11,13 @@ const createWindow = () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    show: false
+    show: false,
+    webPreferences: {
+      contextIsolation: true,
+      enableRemoteModule: false,
+      nodeIntegration: false,
+      preload: path.join(__dirname, 'preload.js')
+    }
   });
 
   // and load the index.html of the app.
@@ -21,7 +27,7 @@ const createWindow = () => {
     slashes: true
   }));
 
-  win.on('ready-to-show', () => {
+  win.once('ready-to-show', () => {
     win.show();
   });
 
@@ -37,10 +43,11 @@ const createWindow = () => {
 };
 
 app.on('ready', () => {
-  createWindow();
   ipcMain.on('file-dropped', (event, filePath) => {
     showOpenDialog(win, filePath, processFile);
-  })
+  });
+
+  createWindow();
 });
 
 // Quit when all windows are closed.
