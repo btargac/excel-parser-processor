@@ -63,7 +63,7 @@
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^6.0.3",
     "css-loader": "^3.4.0",
-    "electron": "^7.1.7",
+    "electron": "^7.2.4",
     "electron-builder": "^21.2.0",
     "electron-icon-maker": "^0.0.4",
     "html-webpack-exclude-assets-plugin": "^0.0.7",
