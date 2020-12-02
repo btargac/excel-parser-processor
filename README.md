@@ -24,14 +24,14 @@ progress.
 
 #### Sample Excel file structure
 
-|               | A                                                                 | B                         |
-| ------------- | :---------------------------------------------------------------- | :-------------------------|
-| 1             | https://www.buraktargac.com/sample_image.gif                      | optional-sample-file-name |
-| 2             | https://www.buraktargac.com/sample_image.png                      | optional-sample-file-name |
-| 3             | https://www.buraktargac.com/sample_image.jpg                      |                           |
-| .             | ...                                                               |                           |
-| .             | ...                                                               |                           |
-| n             | Asset URL ( can be any type of file jpg, jpeg, png, txt, doc, etc)|                           |
+|               | A                                                                 | B                         | C                         |
+| ------------- | :---------------------------------------------------------------- | :-------------------------| :-------------------------|
+| 1             | https://www.buraktargac.com/sample_image.gif                      | optional-sample-file-name | optional-sub-folder-name  |
+| 2             | https://www.buraktargac.com/sample_image.png                      | optional-sample-file-name | optional-sub-folder-name  |
+| 3             | https://www.buraktargac.com/sample_image.jpg                      |                           |                           |
+| .             | ...                                                               |                           |                           |
+| .             | ...                                                               |                           |                           |
+| n             | Asset URL ( can be any type of file jpg, jpeg, png, txt, doc, etc)|                           |                           |
 
 <br/>
 
