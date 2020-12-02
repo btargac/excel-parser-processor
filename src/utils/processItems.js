@@ -1,5 +1,5 @@
 import path from 'path';
-import { createWriteStream } from 'fs';
+import { createWriteStream, mkdir } from 'fs';
 import fetch from 'electron-fetch';
 import { URL } from 'url';
 import xlsx from 'node-xlsx';
@@ -19,17 +19,20 @@ const _resetProcessData = () => {
 
 const processItem = async (item, outputPath) => {
 
-  const [ itemUrl, newName ] = item;
+  const [ itemUrl, newName, subFolderName ] = item;
   const url = new URL(itemUrl);
   const itemName = newName ? `${newName}${path.extname(url.pathname)}` : path.basename(url.pathname);
 
   const response = await fetch(itemUrl);
 
   if (response.ok) {
+    if (subFolderName) {
+      await mkdir(`${outputPath}/${subFolderName}`, { recursive: true }, () => {});
+    }
 
-    const dest = createWriteStream(path.join(outputPath, itemName));
+    const dest = createWriteStream(path.join(outputPath, subFolderName ? subFolderName : '', itemName));
+
     response.body.pipe(dest);
-
   } else {
     throw {
       status: response.status,
@@ -44,7 +47,7 @@ const processItems = async (rowItems, outputPath, win) => {
   const itemsLength = rowItems.length;
 
   for (let i = 0; i < itemsLength; i += 20) {
-    const requests = rowItems.slice(i, i + 20).map((item) => {
+    const requests = rowItems.slice(i, i + 20).map(item => {
       return processItem(item, outputPath)
         .then(() => {
           const unprocessedItems = erroneousItems.length + incompatibleItems.length;
