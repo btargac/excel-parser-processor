@@ -12,6 +12,7 @@ recursively till every item of the array is processed. For example downloading a
 [![Backers on Open Collective](https://opencollective.com/excel-parser-processor/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/excel-parser-processor/sponsors/badge.svg)](#sponsors)
 [![Open Source Helpers](https://www.codetriage.com/btargac/excel-parser-processor/badges/users.svg)](https://www.codetriage.com/btargac/excel-parser-processor)
+[![CodeFactor][CodeFactor-image]][CodeFactor-url]
 
 #### How to use
 
@@ -116,3 +117,6 @@ MIT © [Burak Targaç](https://github.com/btargac)
 
 [codecov-image]: https://codecov.io/gh/btargac/excel-parser-processor/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/btargac/excel-parser-processor
+
+[CodeFactor-image]: https://www.codefactor.io/repository/github/btargac/excel-parser-processor/badge
+[CodeFactor-url]: https://www.codefactor.io/repository/github/btargac/excel-parser-processor

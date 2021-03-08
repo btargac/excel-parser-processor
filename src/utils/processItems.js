@@ -1,9 +1,15 @@
 import path from 'path';
 import { createWriteStream, mkdir } from 'fs';
+import { pipeline } from 'stream';
+import { promisify } from 'util';
 import fetch from 'electron-fetch';
 import { URL } from 'url';
 import xlsx from 'node-xlsx';
 import isUrl from 'is-url';
+import mime from 'mime-types';
+
+import generateFileName from './generateFileName';
+const streamPipeline = promisify(pipeline);
 
 let initialItemsLength;
 let processedItemsCount;
@@ -23,16 +29,32 @@ const processItem = async (item, outputPath) => {
   const url = new URL(itemUrl);
   const itemName = newName ? `${newName}${path.extname(url.pathname)}` : path.basename(url.pathname);
 
-  const response = await fetch(itemUrl);
+  // usage of 'If-None-Match' header is just to force the server not to return an 304 since electron net does not
+  // correctly return content-type headers when converting an 304 to 200 internally
+  // see issues https://github.com/electron/electron/issues/27895, https://github.com/electron/electron/pull/21552
+  // and https://github.com/electron/electron/issues/20631
+  const response = await fetch(itemUrl, {headers: {'If-None-Match': null}});
 
   if (response.ok) {
     if (subFolderName) {
       await mkdir(`${outputPath}/${subFolderName}`, { recursive: true }, () => {});
     }
 
-    const dest = createWriteStream(path.join(outputPath, subFolderName ? subFolderName : '', itemName));
+    const contentType = response.headers.get('content-type');
+    const extension = mime.extension(contentType);
+    const fileName = generateFileName(itemName, extension);
+    // file system flag 'wx' stands for:
+    // Open file for writing. The file is created (if it does not exist), but fails if the path exists. (x causes to throw)
+    const dest = createWriteStream(path.join(outputPath, subFolderName || '', fileName), {flags: 'wx'});
 
-    response.body.pipe(dest);
+    try {
+      await streamPipeline(response.body, dest);
+    } catch (error) {
+      throw {
+        statusText: error.message,
+        itemInfo: error.path
+      }
+    }
   } else {
     throw {
       status: response.status,
@@ -40,7 +62,6 @@ const processItem = async (item, outputPath) => {
       itemInfo: url.href
     }
   }
-
 };
 
 const processItems = async (rowItems, outputPath, win) => {
@@ -68,8 +89,7 @@ const processItems = async (rowItems, outputPath, win) => {
         });
     });
 
-    await Promise.all(requests)
-      .catch(e => console.log(`Error processing for the batch ${i} - ${e}`));
+    await Promise.allSettled(requests);
   }
 
   const logFileStream = createWriteStream(path.join(
