@@ -1,6 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
@@ -31,18 +31,19 @@ const mainConfig = {
   },
   plugins: [
     cleanDist,
-    new CopyWebpackPlugin([
-      {
-        from: './src/images/',
-        to: 'images',
-        toType: 'dir'
-      },
-      {
-        from: './src/preload.js',
-        to: 'preload.js',
-        toType: 'file'
-      }
-    ])
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './src/images/',
+          to: 'images'
+        },
+        {
+          from: './src/preload.js',
+          to: 'preload.js',
+          toType: 'file'
+        }
+      ],
+    }),
   ],
   module: {
     rules: [

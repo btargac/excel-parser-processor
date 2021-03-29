@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const { mainConfig, rendererConfig } = require('./webpack.common.js');
 const processType = process.env.PROCESS_TYPE;
 
