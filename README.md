@@ -5,14 +5,15 @@
 Simply generates an array of items from the rows of an excel file and does the repetitive tedious operations step by step
 recursively till every item of the array is processed. For example downloading all the URL's in an excel file.
 
-[![Dependency Status][david_img]][david_site]
-[![Build Status][travis_img]][travis_site]
+[![Dependency Status][david-image]][david-url]
+[![Build Status][travis-image]][travis-url]
 [![Github Tag][github-tag-image]][github-tag-url]
 [![codecov][codecov-image]][codecov-url]
 [![Backers on Open Collective](https://opencollective.com/excel-parser-processor/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/excel-parser-processor/sponsors/badge.svg)](#sponsors)
 [![Open Source Helpers](https://www.codetriage.com/btargac/excel-parser-processor/badges/users.svg)](https://www.codetriage.com/btargac/excel-parser-processor)
 [![CodeFactor][CodeFactor-image]][CodeFactor-url]
+[![CodeQL][codeql-image]][codeql-url]
 
 #### How to use
 
@@ -106,11 +107,11 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 #### License
 MIT © [Burak Targaç](https://github.com/btargac)
 
-[david_img]: https://david-dm.org/btargac/excel-parser-processor/status.svg
-[david_site]: https://david-dm.org/btargac/excel-parser-processor
+[david-image]: https://david-dm.org/btargac/excel-parser-processor/status.svg
+[david-url]: https://david-dm.org/btargac/excel-parser-processor
 
-[travis_img]: https://travis-ci.org/btargac/excel-parser-processor.svg?branch=master
-[travis_site]: https://travis-ci.org/btargac/excel-parser-processor
+[travis-image]: https://travis-ci.org/btargac/excel-parser-processor.svg?branch=master
+[travis-url]: https://travis-ci.org/btargac/excel-parser-processor
 
 [github-tag-image]: https://img.shields.io/github/tag/btargac/excel-parser-processor.svg
 [github-tag-url]: https://github.com/btargac/excel-parser-processor/releases/latest
@@ -120,3 +121,6 @@ MIT © [Burak Targaç](https://github.com/btargac)
 
 [CodeFactor-image]: https://www.codefactor.io/repository/github/btargac/excel-parser-processor/badge
 [CodeFactor-url]: https://www.codefactor.io/repository/github/btargac/excel-parser-processor
+
+[codeql-image]: https://github.com/btargac/excel-parser-processor/actions/workflows/codeql-analysis.yml/badge.svg?branch=master
+[codeql-url]: https://github.com/btargac/excel-parser-processor/actions/workflows/codeql-analysis.yml
