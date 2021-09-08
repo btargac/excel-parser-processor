@@ -1,9 +1,9 @@
 # <img src="build/icons/128x128.png" width="64px" align="center" alt="Excel Parser Processor"> Excel Parser Processor
 
-### A Cross-Platform Desktop App for processing all rows of excel files
+### A Desktop app for processing all rows of Excel files
 
-Simply generates an array of items from the rows of an excel file and does the repetitive tedious operations step by step
-recursively till every item of the array is processed. For example downloading all the URL's in an excel file.
+Simply generates an array of items from the rows of an Excel file and does the repetitive tedious operations step by step
+recursively till every item of the array is processed. For example downloads all the URL's in an Excel file.
 
 [![Dependency Status][david-image]][david-url]
 [![Build Status][travis-image]][travis-url]
@@ -20,9 +20,8 @@ recursively till every item of the array is processed. For example downloading a
 You can [download the latest release](https://github.com/btargac/excel-parser-processor/releases) for your operating system
 or build it yourself (see [Development](#development)).
 
-Just select or drag & drop an excel file, then select the output folder for the downloaded images or files. All of the
-items in the excel file will be downloaded into the selected folder and you will be notified about the state of ongoing
-progress.
+Just select or drag & drop an Excel file, then select the output folder for the downloaded images or files. All the items
+in the Excel file will be downloaded into the selected folder, and you will be notified about the state of ongoing progress.
 
 #### Sample Excel file structure
 
@@ -55,7 +54,7 @@ $ npm run build
 $ npm start
 ```
 
-If you are changing the view or renderer related things, you can use webpack's watch feature with
+If you are changing the view or renderer related things, you can use Webpack's watch feature with
 
 ```bash
 $ npm run start-renderer-dev
