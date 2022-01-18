@@ -9,6 +9,7 @@ import isUrl from 'is-url';
 import mime from 'mime-types';
 
 import generateFileName from './generateFileName';
+
 const streamPipeline = promisify(pipeline);
 
 let initialItemsLength;
@@ -68,8 +69,9 @@ const processItems = async (rowItems, outputPath, win) => {
   const itemsLength = rowItems.length;
 
   for (let i = 0; i < itemsLength; i += 20) {
-    const requests = rowItems.slice(i, i + 20).map(item => {
-      return processItem(item, outputPath)
+    const requests = rowItems
+      .slice(i, i + 20)
+      .map(item => processItem(item, outputPath)
         .then(() => {
           const unprocessedItems = erroneousItems.length + incompatibleItems.length;
           const percentage = Math.abs(++processedItemsCount / (initialItemsLength - unprocessedItems)) * 100;
@@ -86,8 +88,8 @@ const processItems = async (rowItems, outputPath, win) => {
             type: 'process-error',
             data: err
           });
-        });
-    });
+        })
+      );
 
     await Promise.allSettled(requests);
   }

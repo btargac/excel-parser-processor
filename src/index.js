@@ -1,14 +1,11 @@
 import path from 'path';
 import { app, BrowserWindow, ipcMain } from 'electron';
-import url from 'url';
 import { showOpenDialog } from './dialogs';
 import { processFile } from "./utils/processItems";
 
-let win;
-
 const createWindow = () => {
   // Create the browser window.
-  win = new BrowserWindow({
+  const win = new BrowserWindow({
     width: 800,
     height: 600,
     show: false,
@@ -21,11 +18,7 @@ const createWindow = () => {
   });
 
   // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+  win.loadFile(path.join(__dirname, 'index.html'));
 
   win.once('ready-to-show', () => {
     win.show();
@@ -35,16 +28,13 @@ const createWindow = () => {
   if(process.env.NODE_ENV === 'development') {
     win.webContents.openDevTools();
   }
-
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    win = null;
-  });
 };
 
 app.on('ready', () => {
   ipcMain.on('file-dropped', (event, filePath) => {
-    showOpenDialog(win, filePath, processFile);
+    const [window] = BrowserWindow.getAllWindows();
+
+    showOpenDialog(window, filePath, processFile);
   });
 
   createWindow();
@@ -58,7 +48,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (win === null) {
+  if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
