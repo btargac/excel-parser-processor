@@ -17,7 +17,7 @@ const extractSass = new MiniCssExtractPlugin({
 
 const processHtml = new HtmlWebpackPlugin({
   template: './src/index.html',
-  title: 'Simply process excel files',
+  title: 'Simply process Excel files',
 });
 
 const scriptExtension = new ScriptExtHtmlWebpackPlugin({
