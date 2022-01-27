@@ -10,6 +10,10 @@
     ]
   ],
   "plugins": [
-    ["@babel/plugin-transform-runtime", { "corejs": 3 }]
+    ["@babel/plugin-transform-runtime",
+      { "corejs": 3,
+        "version": "^7.16.8"
+      }
+    ]
   ]
 }
