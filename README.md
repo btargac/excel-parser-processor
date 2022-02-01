@@ -5,7 +5,6 @@
 Simply generates an array of items from the rows of an Excel file and does the repetitive tedious operations step by step
 recursively till every item of the array is processed. For example downloads all the URL's in an Excel file.
 
-[![Dependency Status][david-image]][david-url]
 [![Build Status][travis-image]][travis-url]
 [![Github Tag][github-tag-image]][github-tag-url]
 [![codecov][codecov-image]][codecov-url]
@@ -105,9 +104,6 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 #### License
 MIT © [Burak Targaç](https://github.com/btargac)
-
-[david-image]: https://david-dm.org/btargac/excel-parser-processor/status.svg
-[david-url]: https://david-dm.org/btargac/excel-parser-processor
 
 [travis-image]: https://travis-ci.org/btargac/excel-parser-processor.svg?branch=master
 [travis-url]: https://travis-ci.org/btargac/excel-parser-processor
