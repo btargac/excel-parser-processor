@@ -61,7 +61,7 @@ $ npm run start-renderer-dev
 ```
 
 After running this command, you'll see a webpack process watching your files after a new renderer.bundle.js is generated
-you can refresh the excel parser processor app window with `cmd + R` or `ctrl + R` depending on your system.
+you can refresh the Excel parser processor app window with `cmd + R` or `ctrl + R` depending on your system.
 
 To generate binaries on your computer after your development is completed, you can run;
 

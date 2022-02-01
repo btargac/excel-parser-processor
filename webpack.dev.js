@@ -26,5 +26,6 @@ module.exports = merge(config, {
       multiStep: true
     })
   ],
-  mode: 'development'
+  mode: 'development',
+  watch: true
 });
