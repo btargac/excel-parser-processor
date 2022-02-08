@@ -3,7 +3,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -18,10 +17,6 @@ const extractSass = new MiniCssExtractPlugin({
 const processHtml = new HtmlWebpackPlugin({
   template: './src/index.html',
   title: 'Simply process Excel files',
-});
-
-const scriptExtension = new ScriptExtHtmlWebpackPlugin({
-  defaultAttribute: 'defer'
 });
 
 const mainConfig = {
