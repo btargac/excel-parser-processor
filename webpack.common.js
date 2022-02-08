@@ -70,8 +70,7 @@ const rendererConfig = {
   },
   plugins: [
     extractSass,
-    processHtml,
-    scriptExtension
+    processHtml
   ],
   module: {
     rules: [
