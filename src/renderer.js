@@ -45,13 +45,15 @@ const outEvents = ['dragleave', 'dragend', 'mouseout', 'drop'];
 inEvents.forEach(event => drop.addEventListener(event, handleIn));
 outEvents.forEach(event => drop.addEventListener(event, handleOut));
 
+const excelFileRegex = /(vnd\.ms-excel|vnd\.openxmlformats-officedocument\.spreadsheetml\.sheet)/i;
+
 const handleFileSelect = event => {
   const files = event.target.files;
 
   for (let file of files) {
 
     // Only process excel files.
-    if (!file.type.match('officedocument.*')) {
+    if (!file.type.match(excelFileRegex)) {
       continue;
     }
 
