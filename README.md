@@ -6,7 +6,7 @@ Simply generates an array of items from the rows of an Excel file and does the r
 recursively till every item of the array is processed. For example downloads all the URL's in an Excel file.
 
 [![Dependency Status][dependabot-badge]][dependabot-url]
-[![Build Status][travis-image]][travis-url]
+[![Build Status][gh-actions-image]][gh-actions-url]
 [![Github Tag][github-tag-image]][github-tag-url]
 [![codecov][codecov-image]][codecov-url]
 [![Backers on Open Collective](https://opencollective.com/excel-parser-processor/backers/badge.svg)](#backers)
@@ -71,7 +71,7 @@ $ npm run dist
 
 This will add binaries under `/release` folder on your project folder.
 
-`/release` folder is ignored at the repository. Travis will be building the binaries after your branch is merged with master.
+`/release` folder is ignored at the repository. Github Actions will be building the binaries after your branch is merged with master.
 
 ## Contributors
 
@@ -109,8 +109,8 @@ MIT © [Burak Targaç](https://github.com/btargac)
 [dependabot-badge]: https://badgen.net/github/dependabot/btargac/excel-parser-processor?icon=dependabot
 [dependabot-url]: https://github.com/btargac/excel-parser-processor/security/dependabot
 
-[travis-image]: https://travis-ci.org/btargac/excel-parser-processor.svg?branch=master
-[travis-url]: https://travis-ci.org/btargac/excel-parser-processor
+[gh-actions-image]: https://github.com/btargac/excel-parser-processor/actions/workflows/main.yml/badge.svg?branch=master
+[gh-actions-url]: https://github.com/btargac/excel-parser-processor/actions/workflows/main.yml
 
 [github-tag-image]: https://img.shields.io/github/tag/btargac/excel-parser-processor.svg
 [github-tag-url]: https://github.com/btargac/excel-parser-processor/releases/latest

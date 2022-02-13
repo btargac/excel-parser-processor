@@ -1,0 +1,48 @@
+name: Build & release
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  build-release:
+    name: Build and release the Electron App
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest ]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: Build
+        run: |
+          npm install -g codecov
+          npm install
+          npm run build
+          npm run test
+          codecov
+          npm run dist
+
+      - name: Distribute Mac OS X and Windows binaries
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          npm run dist -- --mac --win
+
+      - name: Distribute Linux binaries
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          npm run dist
