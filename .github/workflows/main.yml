@@ -38,10 +38,14 @@ jobs:
 
       - name: Distribute Mac OS X and Windows binaries
         if: ${{ matrix.os == 'macos-latest' }}
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run dist -- --mac --win
 
       - name: Distribute Linux binaries
         if: ${{ matrix.os == 'ubuntu-latest' }}
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run dist
