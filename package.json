@@ -83,7 +83,7 @@
     "electron-fetch": "^1.7.3",
     "is-url": "^1.2.4",
     "jquery": "^3.6.0",
-    "mime-types": "^2.1.29",
+    "mime-types": "^2.1.35",
     "node-xlsx": "^0.21.0",
     "normalize.css": "^8.0.1"
   },
