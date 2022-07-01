@@ -33,7 +33,7 @@ jobs:
 
       - name: Build
         run: |
-          npm install -g codecov
+          npm install codecov --location=global
           npm install
           npm run build
           npm run test
