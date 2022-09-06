@@ -77,7 +77,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.18.9",
+    "@babel/runtime-corejs3": "^7.19.0",
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "electron-fetch": "^1.7.3",
