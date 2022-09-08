@@ -5,14 +5,14 @@
       {
         "useBuiltIns": "usage",
         "corejs": {
-          "version": "3.3" }
+          "version": "3.25" }
       }
     ]
   ],
   "plugins": [
     ["@babel/plugin-transform-runtime",
       { "corejs": 3,
-        "version": "^7.16.8"
+        "version": "^7.18.10"
       }
     ]
   ]
