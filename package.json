@@ -54,7 +54,7 @@
     "@babel/core": "^7.19.1",
     "@babel/plugin-transform-runtime": "^7.19.1",
     "@babel/preset-env": "^7.19.1",
-    "babel-jest": "^29.0.2",
+    "babel-jest": "^29.1.0",
     "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
