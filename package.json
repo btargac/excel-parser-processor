@@ -65,7 +65,7 @@
     "electron-builder": "^24.2.0",
     "electron-icon-maker": "^0.0.5",
     "html-webpack-exclude-assets-plugin": "^0.0.7",
-    "html-webpack-plugin": "^5.3.1",
+    "html-webpack-plugin": "^5.5.1",
     "jest": "^29.5.0",
     "mini-css-extract-plugin": "^2.7.5",
     "npm-run-all": "^4.1.5",
