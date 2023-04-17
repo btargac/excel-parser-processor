@@ -4,7 +4,7 @@ import { pipeline } from 'stream';
 import { promisify } from 'util';
 import fetch from 'electron-fetch';
 import { URL } from 'url';
-import xlsx from 'node-xlsx';
+import { read, utils } from 'xlsx';
 import isUrl from 'is-url';
 import mime from 'mime-types';
 
@@ -126,15 +126,21 @@ const processItems = async (rowItems, outputPath, win) => {
   logFileStream.end();
 };
 
-export const processFile = async (filePath, outputPath, browserWindow) => {
+export const processFile = async (file, outputPath, browserWindow) => {
 
   _resetProcessData();
 
-  const workSheetsFromFile = xlsx.parse(filePath);
-  const dataRows = workSheetsFromFile.flatMap(page => page.data).filter(item => item.length);
-  const validRows = dataRows.filter(row => row.some(text => isUrl(text)));
+  const workbook = read(file);
+  // get all the work Sheets in the file
+  const wsNames = workbook.SheetNames;
+  // filter out the sheets without no rows
+  const AllSheetsData = wsNames.map(
+    name => utils.sheet_to_json(workbook.Sheets[name], { header: 1, blankrows: false })
+  ).filter(item => item.length).flat();
 
-  incompatibleItems = dataRows.filter(row => !row.some(text => isUrl(text)));
+  const validRows = AllSheetsData.filter(row => row.some(text => isUrl(text)));
+
+  incompatibleItems = AllSheetsData.filter(row => !row.some(text => isUrl(text)));
 
   initialItemsLength = validRows.length;
 

@@ -10,15 +10,16 @@ test('should generate the correct file name when file name is extension free', (
   expect(fileName).toBe('sample.jpg');
 });
 
-
 test('should generate the correct file name when file name has an extension', () => {
-  const fileName = generateFileName('sample.avif', 'avif');
-
+  let fileName = generateFileName('sample.avif', 'avif');
   expect(fileName).toBe('sample.avif');
+
+  fileName = generateFileName('sample.gif');
+  expect(fileName).toBe('sample.gif');
 });
 
 test('should generate the correct file name when file name is erroneous', () => {
   const fileName = generateFileName('sample.', 'gif');
 
-  expect(fileName).toBe('sample..gif');
+  expect(fileName).toBe('sample.gif');
 });
