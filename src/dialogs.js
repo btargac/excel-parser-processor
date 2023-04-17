@@ -1,16 +1,18 @@
 import { dialog } from 'electron';
 
-export const showOpenDialog = (browserWindow, defaultPath, cb) => {
-  dialog.showOpenDialog(browserWindow, {
-    buttonLabel: "Choose",
-    defaultPath,
-    title: "Choose an output folder",
-    properties: ['openDirectory', 'createDirectory']
-  }).then(({ canceled, filePaths }) => {
+export const showOpenDialog = async (browserWindow, data, cb) => {
+  try {
+    const { canceled, filePaths } = await dialog.showOpenDialog(browserWindow, {
+      buttonLabel: "Choose",
+      defaultPath: data.path,
+      title: "Choose an output folder",
+      properties: ['openDirectory', 'createDirectory']
+    });
+
     if( !canceled && filePaths?.length) {
-      cb(defaultPath, filePaths[0], browserWindow);
+      cb(data.file, filePaths[0], browserWindow);
     }
-  }).catch(err => {
+  } catch (err) {
     console.log(err);
-  })
+  }
 };

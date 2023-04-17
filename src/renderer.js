@@ -47,7 +47,7 @@ outEvents.forEach(event => drop.addEventListener(event, handleOut));
 
 const excelFileRegex = /(vnd\.ms-excel|vnd\.openxmlformats-officedocument\.spreadsheetml\.sheet)/i;
 
-const handleFileSelect = event => {
+const handleFileSelect = async event => {
   const files = event.target.files;
 
   for (let file of files) {
@@ -59,7 +59,10 @@ const handleFileSelect = event => {
 
     window.postMessage({
       type: 'file-dropped',
-      data: file.path
+      data: {
+        file: await file.arrayBuffer(),
+        path: file.path
+      }
     }, '*');
   }
 

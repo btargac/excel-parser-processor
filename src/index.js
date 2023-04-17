@@ -11,6 +11,7 @@ const createWindow = () => {
     show: false,
     webPreferences: {
       contextIsolation: true,
+      devTools: false,
       enableRemoteModule: false,
       nodeIntegration: false,
       preload: path.join(__dirname, 'preload.js')
@@ -31,10 +32,10 @@ const createWindow = () => {
 };
 
 app.on('ready', () => {
-  ipcMain.on('file-dropped', (event, filePath) => {
+  ipcMain.on('file-dropped', (event, data) => {
     const [window] = BrowserWindow.getAllWindows();
 
-    showOpenDialog(window, filePath, processFile);
+    showOpenDialog(window, data, processFile);
   });
 
   createWindow();
