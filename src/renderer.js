@@ -57,13 +57,19 @@ const handleFileSelect = async event => {
       continue;
     }
 
-    window.postMessage({
-      type: 'file-dropped',
-      data: {
-        file: await file.arrayBuffer(),
-        path: file.path
-      }
-    }, '*');
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+
+      window.postMessage({
+        type: 'file-dropped',
+        data: {
+          file: arrayBuffer,
+          path: file.path
+        }
+      }, '*');
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   event.preventDefault();
