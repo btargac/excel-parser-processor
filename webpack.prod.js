@@ -1,17 +1,9 @@
-const { merge } = require('webpack-merge');
-const { mainConfig, rendererConfig } = require('./webpack.common.js');
+const path = require("path");
 const processType = process.env.PROCESS_TYPE;
 
-let config = null;
+const configPath = `webpack.${processType === 'main' ? 'main' : 'renderer'}.js`;
 
-switch (processType) {
-  case "main":
-    config = mainConfig;
-    break;
-  case "renderer":
-    config = rendererConfig;
-}
-
-module.exports = merge(config, {
+module.exports = {
+  extends: path.resolve(__dirname, configPath),
   mode: 'production'
-});
+};
