@@ -1,31 +1,16 @@
 const path = require('path');
-const { merge } = require('webpack-merge');
-const webpack = require('webpack');
-const { mainConfig, rendererConfig } = require('./webpack.common.js');
 const processType = process.env.PROCESS_TYPE;
 
-let config = null;
+const configPath = `webpack.${processType === 'main' ? 'main' : 'renderer'}.js`;
 
-switch (processType) {
-  case "main":
-    config = mainConfig;
-    break;
-  case "renderer":
-    config = rendererConfig;
-}
-
-module.exports = merge(config, {
-  devtool: 'inline-source-map',
+module.exports = {
+  extends: path.resolve(__dirname, configPath),
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    hot: true,
-    injectHot: (compilerConfig) => compilerConfig.name === 'renderer'
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    hot: true
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin({
-      multiStep: true
-    })
-  ],
-  mode: 'development',
-  watch: true
-});
+  mode: 'development'
+};

@@ -1,67 +1,27 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const devMode = process.env.NODE_ENV === 'development';
 
 // define webpack plugins
-const cleanDist = new CleanWebpackPlugin();
-
 const extractSass = new MiniCssExtractPlugin({
   filename: devMode ? '[name].css' : '[name].[contenthash:12].css',
   chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
 });
 
 const processHtml = new HtmlWebpackPlugin({
+  meta: {
+    'Content-Security-Policy':
+      {
+        'http-equiv': 'Content-Security-Policy',
+        content: `default-src 'self' ${devMode ? "'unsafe-eval'": ''}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;`
+      }
+  },
+  hash: true,
   template: './src/index.html',
   title: 'Simply process Excel files',
 });
-
-const mainConfig = {
-  name: 'main',
-  entry: {
-    index: './src/index.js'
-  },
-  plugins: [
-    cleanDist,
-    new CopyPlugin({
-      patterns: [
-        {
-          from: './src/images/',
-          to: 'images'
-        },
-        {
-          from: './src/preload.js',
-          to: 'preload.js',
-          toType: 'file'
-        }
-      ],
-    }),
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            'cacheDirectory': true,
-          }
-        }
-      }
-    ]
-  },
-  //not to mock __dirname and such node globals
-  node: false,
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  target: 'electron-main'
-};
 
 const rendererConfig = {
   name: 'renderer',
@@ -69,7 +29,7 @@ const rendererConfig = {
     renderer: './src/renderer.js'
   },
   plugins: [
-    extractSass,
+    ...(devMode ? [] : [extractSass]),
     processHtml
   ],
   module: {
@@ -100,10 +60,7 @@ const rendererConfig = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  target: 'electron-renderer'
+  target: ['web', 'electron-renderer']
 };
 
-module.exports = {
-  mainConfig,
-  rendererConfig
-};
+module.exports = rendererConfig

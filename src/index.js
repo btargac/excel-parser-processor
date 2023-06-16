@@ -3,6 +3,8 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { showOpenDialog } from './dialogs';
 import { processFile } from "./utils/processItems";
 
+const isDevMode = process.env.NODE_ENV === 'development';
+
 const createWindow = () => {
   // Create the browser window.
   const win = new BrowserWindow({
@@ -11,7 +13,7 @@ const createWindow = () => {
     show: false,
     webPreferences: {
       contextIsolation: true,
-      devTools: false,
+      devTools: isDevMode,
       enableRemoteModule: false,
       nodeIntegration: false,
       preload: path.join(__dirname, 'preload.js')
@@ -19,14 +21,18 @@ const createWindow = () => {
   });
 
   // and load the index.html of the app.
-  win.loadFile(path.join(__dirname, 'index.html'));
+  if (isDevMode) {
+    win.loadURL('http://localhost:8080',{})
+  } else {
+    win.loadFile(path.join(__dirname, 'index.html'));
+  }
 
   win.once('ready-to-show', () => {
     win.show();
   });
 
   // Open the DevTools during development.
-  if(process.env.NODE_ENV === 'development') {
+  if(isDevMode) {
     win.webContents.openDevTools();
   }
 };
