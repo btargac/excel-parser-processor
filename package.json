@@ -63,7 +63,7 @@
     "core-js": "^3.31.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
-    "electron": "^25.3.0",
+    "electron": "^25.3.1",
     "electron-builder": "^24.6.2",
     "electron-icon-maker": "^0.0.5",
     "html-webpack-exclude-assets-plugin": "^0.0.7",
