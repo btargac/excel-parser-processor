@@ -79,7 +79,7 @@
     "webpack-dev-server": "^4.15.0"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.22.6",
+    "@babel/runtime-corejs3": "^7.22.10",
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "electron-fetch": "^1.9.1",
