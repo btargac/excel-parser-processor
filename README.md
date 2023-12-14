@@ -2,8 +2,9 @@
 
 ### A Desktop app for processing all rows of Excel files
 
-Simply generates an array of items from the rows of an Excel file and does the repetitive tedious operations step by step
-recursively till every item of the array is processed. For example downloads all the URL's in an Excel file.
+Simply generates an array of items from the rows of an Excel file and does the repetitive tedious operations step by
+step till every item of the array is processed. For example downloads all the assets from the URLs from column A in an
+Excel file.
 
 [![Dependency Status][dependabot-badge]][dependabot-url]
 [![Build Status][gh-actions-image]][gh-actions-url]
@@ -25,18 +26,18 @@ in the Excel file will be downloaded into the selected folder, and you will be n
 
 #### Sample Excel file structure
 
-|               | A                                                                 | B                         | C                         |
-| ------------- | :---------------------------------------------------------------- | :-------------------------| :-------------------------|
-| 1             | https://www.buraktargac.com/sample_image.gif                      | optional-sample-file-name | optional-sub-folder-name  |
-| 2             | https://www.buraktargac.com/sample_image.png                      | optional-sample-file-name | optional-sub-folder-name  |
-| 3             | https://www.buraktargac.com/sample_image.jpg                      |                           |                           |
-| .             | ...                                                               |                           |                           |
-| .             | ...                                                               |                           |                           |
-| n             | Asset URL ( can be any type of file jpg, jpeg, png, txt, doc, etc)|                           |                           |
+|   | A (resource to download)                            | B (new filename if used)  | C (subfolder name)       |
+|---|:----------------------------------------------------|:--------------------------|:-------------------------|
+| 1 | https://www.buraktargac.com/sample_image.gif        | optional-sample-file-name | optional-sub-folder-name |
+| 2 | https://www.buraktargac.com/sample_image.png        | optional-sample-file-name | optional-sub-folder-name |
+| 3 | https://www.buraktargac.com/sample_image.jpg        |                           |                          |
+| . | ...                                                 |                           |                          |
+| . | ...                                                 |                           |                          |
+| n | Asset URL (any type of file image, text, pdf etc.)  |                           |                          |
 
 <br/>
 
-Currently there is no limit for `n`, I tested with 4000 items and unless your IP is banned from the publisher there
+Currently, there is no limit for `n`, I tested with 4000 items and unless your IP is banned from the publisher there
 is no problem to download as much as you can.
 
 #### Demo
@@ -94,14 +95,6 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/excel-parser-processor/sponsor/1/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/excel-parser-processor/sponsor/2/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/excel-parser-processor/sponsor/3/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/excel-parser-processor/sponsor/4/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/excel-parser-processor/sponsor/5/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/excel-parser-processor/sponsor/6/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/excel-parser-processor/sponsor/7/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/excel-parser-processor/sponsor/8/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/excel-parser-processor/sponsor/9/website" target="_blank"><img src="https://opencollective.com/excel-parser-processor/sponsor/9/avatar.svg"></a>
-
-
 
 #### License
 MIT © [Burak Targaç](https://github.com/btargac)
