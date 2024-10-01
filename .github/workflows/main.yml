@@ -33,11 +33,15 @@ jobs:
 
       - name: Build
         run: |
-          npm install codecov --location=global
           npm install
           npm run build
           npm run test
-          codecov
+
+      - name: Coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
 
       - name: Distribute Mac OS X and Windows binaries
         if: ${{ matrix.os == 'macos-latest' }}
