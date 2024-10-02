@@ -1,16 +1,14 @@
-import path from 'path';
-import { createWriteStream, mkdir } from 'fs';
-import { pipeline } from 'stream';
-import { promisify } from 'util';
+import path from 'node:path';
+import { createWriteStream } from 'node:fs';
+import { mkdir } from 'node:fs/promises';
+import { pipeline } from 'node:stream/promises';
 import fetch from 'electron-fetch';
-import { URL } from 'url';
+import { URL } from 'node:url';
 import { read, utils } from 'xlsx';
 import isUrl from 'is-url';
 import mime from 'mime-types';
 
 import generateFileName from './generateFileName';
-
-const streamPipeline = promisify(pipeline);
 
 let initialItemsLength;
 let processedItemsCount;
@@ -49,7 +47,7 @@ const processItem = async (item, outputPath) => {
     const dest = createWriteStream(path.join(outputPath, subFolderName || '', fileName), {flags: 'wx'});
 
     try {
-      await streamPipeline(response.body, dest);
+      await pipeline(response.body, dest);
     } catch (error) {
       throw {
         statusText: error.message,
