@@ -76,7 +76,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.0"
+    "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.27.0",
