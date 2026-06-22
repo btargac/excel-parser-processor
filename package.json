@@ -53,7 +53,7 @@
   },
   "homepage": "https://github.com/btargac/excel-parser-processor#readme",
   "devDependencies": {
-    "@babel/core": "^7.27.4",
+    "@babel/core": "^7.29.6",
     "@babel/plugin-transform-runtime": "^7.29.0",
     "@babel/preset-env": "^7.28.3",
     "babel-jest": "^29.6.1",
